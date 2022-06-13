@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MusicController {
     @GetMapping("/")
-    public String get_all() {
-        return "Hello world";
+    public Music get_one() {
+        return new Music("Something just like this");
     }
 }
