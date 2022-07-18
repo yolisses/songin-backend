@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6717bf1d-8428-40fe-9d24-617166a91941" name="Changes" comment="use neo4j database" />
+    <list default="true" id="6717bf1d-8428-40fe-9d24-617166a91941" name="Changes" comment="use neo4j database">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/musiks/backend/music/MusicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/music/MusicController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
