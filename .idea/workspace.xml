@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6717bf1d-8428-40fe-9d24-617166a91941" name="Changes" comment="use neo4j database">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/musiks/backend/music/MusicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/music/MusicController.java" afterDir="false" />
+    <list default="true" id="6717bf1d-8428-40fe-9d24-617166a91941" name="Changes" comment="remove distractions">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/auth/AuthController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,33 +71,9 @@
     &quot;spring.configuration.checksum&quot;: &quot;b43fdd98b1fd705ae4c3a10cf25aad8a&quot;
   }
 }</component>
-  <component name="RunManager" selected="Maven.backend [spring-boot:run]">
-    <configuration name="backend [spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="spring-boot:run" />
-              </list>
-            </option>
-            <option name="pomFileName" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Spring Boot.BackendApplication">
     <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" />
       <module name="backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.musiks.backend.BackendApplication" />
       <method v="2">
@@ -129,7 +105,6 @@
     <list>
       <item itemvalue="Docker.docker-compose.yml.neo4j: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
-      <item itemvalue="Maven.backend [spring-boot:run]" />
       <item itemvalue="Spring Boot.BackendApplication" />
     </list>
     <recent_temporary>
@@ -189,7 +164,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658068716761</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="remove distractions">
+      <created>1658102643284</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1658102643284</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,7 +196,8 @@
     <MESSAGE value="add application-private.yml to .gitignore" />
     <MESSAGE value="add google login" />
     <MESSAGE value="use neo4j database" />
-    <option name="LAST_COMMIT_MESSAGE" value="use neo4j database" />
+    <MESSAGE value="remove distractions" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove distractions" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
