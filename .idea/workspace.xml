@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6717bf1d-8428-40fe-9d24-617166a91941" name="Changes" comment="remove distractions">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/auth/AuthController.java" afterDir="false" />
+    <list default="true" id="6717bf1d-8428-40fe-9d24-617166a91941" name="Changes" comment="add google test">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/google.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +24,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -50,6 +56,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
     &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
@@ -128,6 +135,7 @@
       <workItem from="1658053710705" duration="1416000" />
       <workItem from="1658056990832" duration="5091000" />
       <workItem from="1658062663640" duration="6183000" />
+      <workItem from="1658703781785" duration="2462000" />
     </task>
     <task id="LOCAL-00001" summary="remove stale version">
       <created>1654687179669</created>
