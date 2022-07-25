@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6717bf1d-8428-40fe-9d24-617166a91941" name="Changes" comment="add google test">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/google.html" afterDir="false" />
+    <list default="true" id="6717bf1d-8428-40fe-9d24-617166a91941" name="Changes" comment="create usable signin">
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/musiks/backend/user/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/google.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/google.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +136,7 @@
       <workItem from="1658053710705" duration="1416000" />
       <workItem from="1658056990832" duration="5091000" />
       <workItem from="1658062663640" duration="6183000" />
-      <workItem from="1658703781785" duration="2462000" />
+      <workItem from="1658703781785" duration="9824000" />
     </task>
     <task id="LOCAL-00001" summary="remove stale version">
       <created>1654687179669</created>
@@ -179,7 +180,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658102643284</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="start creating authentication">
+      <created>1658706533560</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1658706533560</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,7 +213,10 @@
     <MESSAGE value="add google login" />
     <MESSAGE value="use neo4j database" />
     <MESSAGE value="remove distractions" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove distractions" />
+    <MESSAGE value="start creating authentication" />
+    <MESSAGE value="connect with Google token verify" />
+    <MESSAGE value="create usable signin" />
+    <option name="LAST_COMMIT_MESSAGE" value="create usable signin" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
