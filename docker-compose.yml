@@ -10,3 +10,4 @@ services:
     environment:
       #      NEO4J_AUTH: neo4j/secret
       NEO4J_dbms_logs_debug_level: DEBUG
+    restart: unless-stopped
