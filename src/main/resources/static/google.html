@@ -1,25 +1,25 @@
 <html lang="en">
 <body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script async defer src="https://accounts.google.com/gsi/client"></script>
 <script>
-    function doThings({credential}) {
-        console.log(credential)
-        axios.post('http://localhost:8080/sign-in', credential)
+    async function doThings({credential}) {
+        const user = await axios.post('http://localhost:8080/sign-in', credential)
+        console.log(user)
     }
 </script>
-<div id="g_id_onload"
-     data-callback="doThings"
-     data-client_id="456371025061-44c24jcod62qnejc2kp6f8dmj3amlshn.apps.googleusercontent.com">
+<div data-callback="doThings"
+     data-client_id="456371025061-44c24jcod62qnejc2kp6f8dmj3amlshn.apps.googleusercontent.com"
+     id="g_id_onload">
     <!--     data-auto_prompt="true"-->
 </div>
 <div class="g_id_signin"
-     data-type="standard"
-     data-size="large"
-     data-theme="outline"
-     data-text="sign_in_with"
+     data-logo_alignment="left"
      data-shape="rectangular"
-     data-logo_alignment="left">
+     data-size="large"
+     data-text="sign_in_with"
+     data-theme="outline"
+     data-type="standard">
 </div>
 </body>
 </html>

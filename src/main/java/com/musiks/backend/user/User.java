@@ -3,8 +3,8 @@ package com.musiks.backend.user;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
+import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
 @Node
@@ -18,4 +18,10 @@ public class User {
     private String name;
     private String email;
     private String picture;
+
+    public User(String email, String name, String picture) {
+        this.name = name;
+        this.email = email;
+        this.picture = picture;
+    }
 }
