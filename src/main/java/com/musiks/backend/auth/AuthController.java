@@ -55,9 +55,6 @@ public class AuthController {
         var secondsPerDay = 24 * 60 * 60;
         sessionCookie.setMaxAge(sessionWeeksDuration * secondsPerDay);
         res.addCookie(sessionCookie);
-
-        System.out.println(user);
-
         return user;
     }
 }
