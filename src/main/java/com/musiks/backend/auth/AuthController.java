@@ -4,9 +4,9 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.musiks.backend.user.User;
 import com.musiks.backend.user.UserRepo;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ import java.security.GeneralSecurityException;
 import static com.musiks.backend.auth.Auth.sessionWeeksDuration;
 import static java.util.Objects.isNull;
 
-@Controller
+@RestController
 @AllArgsConstructor
 public class AuthController {
     UserRepo userRepo;
@@ -25,7 +25,8 @@ public class AuthController {
     SessionRepo sessionRepo;
 
     @PostMapping("/sign-in")
-    User signIn(@RequestBody String token, HttpServletResponse res,
+    User signIn(@RequestBody String token,
+                HttpServletResponse res,
                 HttpServletRequest req)
             throws GeneralSecurityException, IOException {
 

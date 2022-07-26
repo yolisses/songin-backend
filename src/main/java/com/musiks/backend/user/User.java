@@ -7,6 +7,8 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
+import javax.validation.constraints.Email;
+
 @Node
 @Data
 @NoArgsConstructor
@@ -16,12 +18,13 @@ public class User {
     @GeneratedValue
     private Long id;
     private String name;
+    @Email
     private String email;
-    private String picture;
+    private String image;
 
-    public User(String email, String name, String picture) {
+    public User(String email, String name, String image) {
         this.name = name;
         this.email = email;
-        this.picture = picture;
+        this.image = image;
     }
 }
