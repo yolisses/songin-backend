@@ -24,6 +24,8 @@ public class User {
     public String image;
     @Relationship
     public Set<Music> likes;
+    @Relationship
+    public Set<Music> listened;
 
     public User(String email, String name, String image) {
         this.name = name;

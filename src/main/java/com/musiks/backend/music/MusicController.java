@@ -25,6 +25,19 @@ public class MusicController {
         return musicRepo.findAll();
     }
 
+    @GetMapping("/{id}/listen")
+    String listen(HttpServletRequest req, @PathVariable Long id) {
+        var user = auth.getUser(req);
+        var music = musicRepo.findById(id);
+        if (music.isEmpty()) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Music not found"
+        );
+        user.listened.add(music.get());
+        userRepo.save(user);
+        return "https://fake-music-path";
+    }
+
+
     @PostMapping("/{id}/like")
     void like(HttpServletRequest req, @PathVariable Long id) {
         var user = auth.getUser(req);
