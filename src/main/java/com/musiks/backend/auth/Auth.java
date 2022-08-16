@@ -38,6 +38,9 @@ public class Auth {
         if (session == null)
             throwForbidden("Session not found");
 
+        if (session.isLoggedOut())
+            throwForbidden("Session already logged out");
+
         var ip = req.getRemoteAddr();
         if (!session.getIp().equals(ip))
             throwForbidden("Invalid origin address to session: " + ip);

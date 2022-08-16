@@ -23,8 +23,8 @@ public class Session {
     private User user;
     private String ip;
     private boolean loggedOut;
-    private ZonedDateTime createdAt;
     static int weeksDuration = 1;
+    private ZonedDateTime createdAt;
 
     public Session(User user, String ip) {
         this.ip = ip;

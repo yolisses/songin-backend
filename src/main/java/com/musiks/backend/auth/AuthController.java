@@ -30,6 +30,7 @@ public class AuthController {
         var sessionId = auth.getSessionId(req);
         var session = sessionRepo.findSessionById(sessionId);
         session.setLoggedOut(true);
+        sessionRepo.save(session);
         removeSessionCookie(res);
     }
 
