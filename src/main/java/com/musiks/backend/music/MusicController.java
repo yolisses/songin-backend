@@ -2,13 +2,13 @@ package com.musiks.backend.music;
 
 import com.musiks.backend.auth.Auth;
 import com.musiks.backend.user.UserRepo;
+import com.musiks.backend.utils.Req;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -26,7 +26,7 @@ public class MusicController {
     }
 
     @GetMapping("/{id}/listen")
-    String listen(HttpServletRequest req, @PathVariable Long id) {
+    String listen(Req req, @PathVariable Long id) {
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(
@@ -37,9 +37,19 @@ public class MusicController {
         return "https://fake-music-path";
     }
 
+    @PostMapping("/{id}/share")
+    void share(Req req, @PathVariable Long id) {
+        var user = auth.getUser(req);
+        var music = musicRepo.findById(id);
+        if (music.isEmpty()) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Music not found"
+        );
+        user.likes.add(music.get());
+        userRepo.save(user);
+    }
 
     @PostMapping("/{id}/like")
-    void like(HttpServletRequest req, @PathVariable Long id) {
+    void like(Req req, @PathVariable Long id) {
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(
@@ -50,7 +60,7 @@ public class MusicController {
     }
 
     @DeleteMapping("/{id}/like")
-    void unlike(HttpServletRequest req, @PathVariable Long id) {
+    void unlike(Req req, @PathVariable Long id) {
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(

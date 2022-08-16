@@ -25,5 +25,7 @@ public class User {
     @Relationship
     public Set<Music> likes;
     @Relationship
+    public Set<Music> shares;
+    @Relationship
     public Set<Music> listened;
 }
