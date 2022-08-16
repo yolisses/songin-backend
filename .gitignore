@@ -32,4 +32,5 @@ build/
 .vscode/
 
 **/application.yml
+**/application.properties
 .idea

@@ -22,11 +22,18 @@ public class Session {
     @Relationship
     private User user;
     private String ip;
+    private boolean loggedOut;
     private ZonedDateTime createdAt;
+    static int weeksDuration = 1;
 
     public Session(User user, String ip) {
         this.ip = ip;
         this.user = user;
         this.createdAt = ZonedDateTime.now();
+    }
+
+    public boolean isExpired() {
+        var now = ZonedDateTime.now();
+        return createdAt.plusWeeks(weeksDuration).isBefore(now);
     }
 }

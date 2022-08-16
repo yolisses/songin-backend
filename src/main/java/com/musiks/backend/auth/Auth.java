@@ -8,12 +8,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.time.ZonedDateTime;
 
 @Configuration
 @AllArgsConstructor
 public class Auth {
-    static int sessionWeeksDuration = 1;
     SessionRepo sessionRepo;
 
     private void throwForbidden(String text) {
@@ -22,7 +20,7 @@ public class Auth {
         );
     }
 
-    String getSessionId(HttpServletRequest req) {
+    public String getSessionId(HttpServletRequest req) {
         Cookie[] cookies = req.getCookies();
         for (var cookie : cookies) {
             if (cookie.getName().equals("session_id")) {
@@ -36,16 +34,17 @@ public class Auth {
     public User getUser(HttpServletRequest req) {
         var sessionId = getSessionId(req);
         var session = sessionRepo.findSessionById(sessionId);
+
         if (session == null)
             throwForbidden("Session not found");
+
         var ip = req.getRemoteAddr();
         if (!session.getIp().equals(ip))
             throwForbidden("Invalid origin address to session");
-        var now = ZonedDateTime.now();
-        var isExpired = session.getCreatedAt()
-                .plusWeeks(sessionWeeksDuration).isBefore(now);
-        if (isExpired)
+
+        if (session.isExpired())
             throwForbidden("Session expired");
+
         return session.getUser();
     }
 }

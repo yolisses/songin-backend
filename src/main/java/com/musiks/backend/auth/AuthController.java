@@ -14,15 +14,42 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
-import static com.musiks.backend.auth.Auth.sessionWeeksDuration;
 import static java.util.Objects.isNull;
 
 @RestController
 @AllArgsConstructor
 public class AuthController {
+    Auth auth;
     UserRepo userRepo;
     TokenVerifier verifier;
     SessionRepo sessionRepo;
+
+    @PostMapping("/logout")
+    void logout(HttpServletRequest req,
+                HttpServletResponse res) {
+        var sessionId = auth.getSessionId(req);
+        var session = sessionRepo.findSessionById(sessionId);
+        session.setLoggedOut(true);
+        removeSessionCookie(res);
+    }
+
+    void removeSessionCookie(HttpServletResponse res) {
+        var sessionCookie = new Cookie("session_id", null);
+        sessionCookie.setHttpOnly(true);
+        sessionCookie.setMaxAge(0);
+        res.addCookie(sessionCookie);
+    }
+
+
+    void addSessionCookie(HttpServletResponse res, String sessionId) {
+        var secondsPerDay = 24 * 60 * 60;
+        var maxAge = Session.weeksDuration * secondsPerDay;
+
+        var sessionCookie = new Cookie("session_id", sessionId);
+        sessionCookie.setHttpOnly(true);
+        sessionCookie.setMaxAge(maxAge);
+        res.addCookie(sessionCookie);
+    }
 
     @PostMapping("/sign-in")
     User signIn(@RequestBody String token,
@@ -49,15 +76,7 @@ public class AuthController {
 
         var session = new Session(user, req.getRemoteAddr());
         sessionRepo.save(session);
-
-        var sessionCookie = new Cookie(
-                "session_id",
-                session.getId());
-        sessionCookie.setHttpOnly(true);
-        var secondsPerDay = 24 * 60 * 60;
-        var maxAge = sessionWeeksDuration * secondsPerDay;
-        sessionCookie.setMaxAge(maxAge);
-        res.addCookie(sessionCookie);
+        addSessionCookie(res, session.getId());
         return user;
     }
 }
