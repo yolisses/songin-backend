@@ -27,7 +27,7 @@ public class MusicController {
     }
 
     @GetMapping("/{id}/listen")
-    String listen(HttpServletRequest req, @PathVariable Long id) {
+    String listen(HttpServletRequest req, @PathVariable long id) {
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(
@@ -39,7 +39,7 @@ public class MusicController {
     }
 
     @PostMapping("/{id}/share")
-    void share(HttpServletRequest req, @PathVariable Long id) {
+    void share(HttpServletRequest req, @PathVariable long id) {
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(
@@ -50,7 +50,7 @@ public class MusicController {
     }
 
     @PostMapping("/{id}/like")
-    void like(HttpServletRequest req, @PathVariable Long id) {
+    void like(HttpServletRequest req, @PathVariable long id) {
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(
@@ -61,7 +61,7 @@ public class MusicController {
     }
 
     @DeleteMapping("/{id}/like")
-    void unlike(HttpServletRequest req, @PathVariable Long id) {
+    void unlike(HttpServletRequest req, @PathVariable long id) {
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(

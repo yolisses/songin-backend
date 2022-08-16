@@ -60,7 +60,7 @@ public class AuthController {
 
         GoogleIdToken idToken = verifier.googleVerifier.verify(token);
         GoogleIdToken.Payload payload = idToken.getPayload();
-        String email = payload.getEmail();
+        var email = payload.getEmail();
 
         User user = userRepo.findByEmail(email);
 
