@@ -8,7 +8,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 @AllArgsConstructor
 @RestController
 @RequestMapping("/users")

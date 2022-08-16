@@ -25,14 +25,9 @@ public class User {
     @Relationship
     public Set<Music> likes;
     @Relationship
+    public Set<User> follows;
+    @Relationship
     public Set<Music> shares;
     @Relationship
     public Set<Music> listened;
-
-    @Relationship(type = "FOLLOWS",
-            direction = Relationship.Direction.OUTGOING)
-    public Set<User> follows;
-    @Relationship(type = "FOLLOWS",
-            direction = Relationship.Direction.INCOMING)
-    public Set<User> followedBy;
 }
