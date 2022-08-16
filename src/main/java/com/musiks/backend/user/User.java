@@ -17,7 +17,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue
-    public Long id;
+    public long id;
     public String name;
     @Email
     public String email;
@@ -28,4 +28,11 @@ public class User {
     public Set<Music> shares;
     @Relationship
     public Set<Music> listened;
+
+    @Relationship(type = "FOLLOWS",
+            direction = Relationship.Direction.OUTGOING)
+    public Set<User> follows;
+    @Relationship(type = "FOLLOWS",
+            direction = Relationship.Direction.INCOMING)
+    public Set<User> followedBy;
 }
