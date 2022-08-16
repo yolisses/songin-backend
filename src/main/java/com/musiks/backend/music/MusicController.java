@@ -2,14 +2,14 @@ package com.musiks.backend.music;
 
 import com.musiks.backend.auth.Auth;
 import com.musiks.backend.user.UserRepo;
-import com.musiks.backend.utils.Req;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -20,13 +20,14 @@ public class MusicController {
     MusicRepo musicRepo;
     ModelMapper modelMapper;
 
-    @GetMapping
-    List<Music> getAll() {
-        return musicRepo.findAll();
+    @GetMapping("/history")
+    Set<Music> history(HttpServletRequest req) {
+        var user = auth.getUser(req);
+        return user.listened;
     }
 
     @GetMapping("/{id}/listen")
-    String listen(Req req, @PathVariable Long id) {
+    String listen(HttpServletRequest req, @PathVariable Long id) {
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(
@@ -38,7 +39,7 @@ public class MusicController {
     }
 
     @PostMapping("/{id}/share")
-    void share(Req req, @PathVariable Long id) {
+    void share(HttpServletRequest req, @PathVariable Long id) {
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(
@@ -49,7 +50,7 @@ public class MusicController {
     }
 
     @PostMapping("/{id}/like")
-    void like(Req req, @PathVariable Long id) {
+    void like(HttpServletRequest req, @PathVariable Long id) {
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(
@@ -60,7 +61,7 @@ public class MusicController {
     }
 
     @DeleteMapping("/{id}/like")
-    void unlike(Req req, @PathVariable Long id) {
+    void unlike(HttpServletRequest req, @PathVariable Long id) {
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(

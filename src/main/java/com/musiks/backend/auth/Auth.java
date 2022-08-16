@@ -1,13 +1,13 @@
 package com.musiks.backend.auth;
 
 import com.musiks.backend.user.User;
-import com.musiks.backend.utils.Req;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.time.ZonedDateTime;
 
 @Configuration
@@ -22,7 +22,7 @@ public class Auth {
         );
     }
 
-    String getSessionId(Req req) {
+    String getSessionId(HttpServletRequest req) {
         Cookie[] cookies = req.getCookies();
         for (var cookie : cookies) {
             if (cookie.getName().equals("session_id")) {
@@ -33,7 +33,7 @@ public class Auth {
         return null;
     }
 
-    public User getUser(Req req) {
+    public User getUser(HttpServletRequest req) {
         var sessionId = getSessionId(req);
         var session = sessionRepo.findSessionById(sessionId);
         if (session == null)
