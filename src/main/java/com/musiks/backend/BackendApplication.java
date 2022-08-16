@@ -22,7 +22,6 @@ public class BackendApplication {
         return new ModelMapper();
     }
 
-
     @Bean
     CommandLineRunner commandLineRunner() {
         boolean runMock = false;

@@ -35,25 +35,28 @@ public class AuthController {
         String email = payload.getEmail();
 
         User user = userRepo.findByEmail(email);
-        res.setStatus(200);
 
         if (isNull(user)) {
-            user = new User(
-                    email,
-                    payload.get("name").toString(),
-                    payload.get("picture").toString());
+            user = new User();
+            user.email = email;
+            user.name = payload.get("name").toString();
+            user.image = payload.get("picture").toString();
             userRepo.save(user);
             res.setStatus(201);
+        } else {
+            res.setStatus(200);
         }
 
         var session = new Session(user, req.getRemoteAddr());
         sessionRepo.save(session);
 
         var sessionCookie = new Cookie(
-                "session_id", session.getId());
+                "session_id",
+                session.getId());
         sessionCookie.setHttpOnly(true);
         var secondsPerDay = 24 * 60 * 60;
-        sessionCookie.setMaxAge(sessionWeeksDuration * secondsPerDay);
+        var maxAge = sessionWeeksDuration * secondsPerDay;
+        sessionCookie.setMaxAge(maxAge);
         res.addCookie(sessionCookie);
         return user;
     }
