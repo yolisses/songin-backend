@@ -40,7 +40,7 @@ public class Auth {
 
         var ip = req.getRemoteAddr();
         if (!session.getIp().equals(ip))
-            throwForbidden("Invalid origin address to session");
+            throwForbidden("Invalid origin address to session: " + ip);
 
         if (session.isExpired())
             throwForbidden("Session expired");

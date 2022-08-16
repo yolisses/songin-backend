@@ -3,23 +3,27 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 <script>
-    async function doThings({credential}) {
+    async function signIn({credential}) {
         const user = await axios.post('http://localhost:8080/sign-in', credential)
         console.log(user)
     }
 </script>
-<div data-callback="doThings"
-     data-client_id="456371025061-44c24jcod62qnejc2kp6f8dmj3amlshn.apps.googleusercontent.com"
-     id="g_id_onload">
+<div
+        id="g_id_onload"
+        data-callback="signIn"
+        data-client_id="456371025061-44c24jcod62qnejc2kp6f8dmj3amlshn.apps.googleusercontent.com"
+>
     <!--     data-auto_prompt="true"-->
 </div>
-<div class="g_id_signin"
-     data-logo_alignment="left"
-     data-shape="rectangular"
-     data-size="large"
-     data-text="sign_in_with"
-     data-theme="outline"
-     data-type="standard">
+<div
+        data-size="large"
+        class="g_id_signin"
+        data-type="standard"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left"
+>
 </div>
 </body>
 </html>
