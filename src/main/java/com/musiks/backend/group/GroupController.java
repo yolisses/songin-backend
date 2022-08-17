@@ -8,21 +8,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/groups")
 public class GroupController {
-
     Auth auth;
     MusicRepo musicRepo;
 
     @GetMapping("/recommend")
-    public Group recommend(HttpServletRequest req) {
-        var group = new ByUsersWithSimilarLikes();
+    public List<Group> recommend(HttpServletRequest req) {
         var user = auth.getUser(req);
+        var groups = new ArrayList<Group>();
+        Group group;
+
+        group = new ByUsersWithSimilarLikes();
         group.name = "Outros estão curtindo";
-        group.loadMusics(musicRepo, user);
-        return group;
+        group.loadMusics(user, musicRepo);
+        groups.add(group);
+
+        group = new ByHistory();
+        group.name = "Escutar de novo";
+        group.loadMusics(user, musicRepo);
+        groups.add(group);
+
+        group = new ByLikedMusic();
+        group.name = "Pra quem gosta de ";
+        group.loadMusics(user, musicRepo);
+        groups.add(group);
+
+        return groups;
     }
 }

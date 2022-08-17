@@ -11,16 +11,12 @@ import com.musiks.backend.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 
 @Configuration
 @AllArgsConstructor
 public class Mock {
-
     MockRepo mockRepo;
     UserRepo userRepo;
     MusicRepo musicRepo;
@@ -71,9 +67,9 @@ public class Mock {
         for (var i = 0; i < usersCount; i++) {
             var user = new User();
             user.mock = true;
-            user.likes = new HashSet<>();
+            user.likes = new ArrayList<>();
             user.follows = new HashSet<>();
-            user.listened = new HashSet<>();
+            user.listened = new ArrayList<>();
             user.name = faker.name().fullName();
             user.email = faker.internet().emailAddress();
             userRepo.save(user);

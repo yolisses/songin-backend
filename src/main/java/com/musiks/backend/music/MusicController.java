@@ -12,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -25,7 +24,7 @@ public class MusicController {
     ModelMapper modelMapper;
 
     @GetMapping("/history")
-    Set<Music> history(HttpServletRequest req) {
+    List<Music> history(HttpServletRequest req) {
         var user = auth.getUser(req);
         return user.listened;
     }

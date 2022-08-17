@@ -22,5 +22,5 @@ public abstract class Group {
     @Relationship
     List<Music> musics;
 
-    public abstract void loadMusics(MusicRepo musicRepo, User user);
+    public abstract void loadMusics(User user, MusicRepo musicRepo);
 }

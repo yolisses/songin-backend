@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 public class ByUsersWithSimilarLikes extends Group {
     final String type = "by_users_with_similar_likes";
 
-    public void loadMusics(MusicRepo musicRepo, User user) {
-        musics = musicRepo.usersThatLikedTheSameLikedThese(user.id);
+    public void loadMusics(User user, MusicRepo musicRepo) {
+        musics = musicRepo.usersThatLikedAsYouLikedThese(user.id);
     }
 }

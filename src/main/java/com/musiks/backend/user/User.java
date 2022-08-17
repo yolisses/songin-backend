@@ -12,6 +12,7 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import javax.validation.constraints.Email;
+import java.util.List;
 import java.util.Set;
 
 
@@ -38,7 +39,7 @@ public class User {
 
     @JsonIgnore
     @Relationship
-    public Set<Music> likes;
+    public List<Music> likes;
 
     @JsonIgnore
     @Relationship
@@ -50,5 +51,5 @@ public class User {
 
     @JsonIgnore
     @Relationship
-    public Set<Music> listened;
+    public List<Music> listened;
 }
