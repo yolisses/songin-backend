@@ -1,12 +1,15 @@
 package com.musiks.backend.user;
 
 import com.musiks.backend.auth.Auth;
+import com.musiks.backend.music.Music;
+import com.musiks.backend.music.MusicRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -15,6 +18,7 @@ import java.util.Optional;
 public class UserController {
     Auth auth;
     UserRepo userRepo;
+    MusicRepo musicRepo;
 
     @GetMapping("/me")
     User me(HttpServletRequest req) {
@@ -67,5 +71,15 @@ public class UserController {
         validateFound(user);
         currentUser.follows.remove(user.get());
         userRepo.save(currentUser);
+    }
+
+    @GetMapping("/{id}/feed")
+    List<Music> feed(@PathVariable long id) {
+        var user = userRepo.findById(id);
+        if (user.isEmpty()) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "User not found"
+        );
+        System.out.println(user.get().id);
+        return musicRepo.usersThatLikedTheSameLikedThese(user.get().id);
     }
 }
