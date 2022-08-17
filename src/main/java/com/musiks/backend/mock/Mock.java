@@ -1,6 +1,8 @@
 package com.musiks.backend.mock;
 
 import com.github.javafaker.Faker;
+import com.musiks.backend.artist.Artist;
+import com.musiks.backend.artist.ArtistRepo;
 import com.musiks.backend.comment.Comment;
 import com.musiks.backend.comment.CommentRepo;
 import com.musiks.backend.music.Music;
@@ -17,9 +19,16 @@ import java.util.*;
 @Configuration
 @AllArgsConstructor
 public class Mock {
+    final int usersCount = 20;
+    final int artistsCount = 5;
+    final int musicsCount = 50;
+    final int followsCount = 4;
+    final int userListenedCount = 10;
+
     MockRepo mockRepo;
     UserRepo userRepo;
     MusicRepo musicRepo;
+    ArtistRepo artistRepo;
     UserService userService;
     CommentRepo commentRepo;
     final Random random = new Random();
@@ -46,41 +55,35 @@ public class Mock {
         return faker.yoda().quote();
     }
 
-    public void run() {
-        mockRepo.deleteMock();
+    void addMusics() {
 
-        var usersCount = 10;
-        var musicsCount = 50;
-        var followsCount = 30;
-        var userListenedCount = 10;
-
-        for (var i = 0; i < musicsCount; i++) {
+        var artists = artistRepo.findAll();
+        for (int i = 0; i < musicsCount; i++) {
+            var artist = randomChoice(artists);
             var music = new Music();
             music.setMock(true);
+            music.setOwner(artist);
             music.setName(faker.book().title());
             music.setDuration(randomDuration());
             musicRepo.save(music);
         }
+    }
 
-        var musics = musicRepo.findAll();
-
-        for (var i = 0; i < usersCount; i++) {
-            var user = new User();
-            user.mock = true;
-            user.likes = new ArrayList<>();
-            user.follows = new HashSet<>();
-            user.listened = new ArrayList<>();
-            user.name = faker.name().fullName();
-            user.email = faker.internet().emailAddress();
-            userRepo.save(user);
-            user.image = String.format("https://picsum.photos/id/%d/96/96", user.id);
-
-            for (var j = 0; j < userListenedCount; j++) {
-                var music = randomChoice(musics);
-                user.listened.add(music);
+    void addLikes() {
+        var users = userRepo.findAll();
+        for (var user : users) {
+            for (var music : user.listened) {
                 if (randomChance(0.4)) {
                     user.likes.add(music);
                 }
+            }
+        }
+    }
+
+    void addComments() {
+        var users = userRepo.findAll();
+        for (var user : users) {
+            for (var music : user.listened) {
                 if (randomChance(0.1)) {
                     var comment = new Comment();
                     comment.setMock(true);
@@ -89,18 +92,63 @@ public class Mock {
                     comment.setText(getCommentText());
                     commentRepo.save(comment);
                 }
-                userRepo.save(user);
             }
         }
+    }
 
+    void addListened() {
         var users = userRepo.findAll();
-        for (var i = 0; i < followsCount; i++) {
-            var follower = randomChoice(users);
-            var followed = randomChoice(users);
-            if (follower.id != followed.id) {
-                follower.follows.add(followed);
-                userRepo.save(follower);
+        var musics = musicRepo.findAll();
+        for (var user : users) {
+            for (int j = 0; j < userListenedCount; j++) {
+                var music = randomChoice(musics);
+                user.listened.add(music);
+            }
+            userRepo.save(user);
+        }
+    }
+
+    void addUsers() {
+        for (int i = 0; i < usersCount; i++) {
+            User user;
+            if (i < artistsCount) {
+                user = new Artist();
+            } else {
+                user = new User();
+            }
+            user.mock = true;
+            user.likes = new ArrayList<>();
+            user.follows = new HashSet<>();
+            user.listened = new ArrayList<>();
+            user.name = faker.name().fullName();
+            user.email = faker.internet().emailAddress();
+            user.nickname = userService.createNickname(user.name);
+            user = userRepo.save(user);
+            user.image = String.format("https://picsum.photos/id/%d/96/96", user.id);
+            userRepo.save(user);
+        }
+    }
+
+    void addFollowers() {
+        var users = userRepo.findAll();
+        for (var user : users) {
+            for (int i = 0; i < followsCount; i++) {
+                var followed = randomChoice(users);
+                if (user.id != followed.id) {
+                    user.follows.add(followed);
+                    userRepo.save(user);
+                }
             }
         }
+    }
+
+    public void run() {
+        mockRepo.deleteMock();
+        addUsers();
+        addMusics();
+        addListened();
+        addLikes();
+        addComments();
+        addFollowers();
     }
 }

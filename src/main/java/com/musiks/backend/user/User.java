@@ -49,6 +49,8 @@ public class User {
     @Relationship
     public Set<Music> shares;
 
+    public boolean artist;
+
     @JsonIgnore
     @Relationship
     public List<Music> listened;
