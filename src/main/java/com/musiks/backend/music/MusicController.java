@@ -84,6 +84,12 @@ public class MusicController {
         return music.get().comments;
     }
 
+    @GetMapping("/search")
+    List<Music> comments(@RequestParam String q) {
+        var musics = musicRepo.fulltextSearch(q);
+        return musics;
+    }
+
     @PostMapping("/{id}/comments")
     Comment comment(@PathVariable long id,
                     HttpServletRequest req,
