@@ -1,6 +1,7 @@
 package com.musiks.backend.music;
 
 import com.musiks.backend.auth.Auth;
+import com.musiks.backend.comment.Comment;
 import com.musiks.backend.user.UserRepo;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -69,5 +71,14 @@ public class MusicController {
         );
         user.likes.remove(music.get());
         userRepo.save(user);
+    }
+
+    @GetMapping("/{id}/comments")
+    List<Comment> comments(@PathVariable long id) {
+        var music = musicRepo.findById(id);
+        if (music.isEmpty()) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Music not found"
+        );
+        return music.get().comments;
     }
 }

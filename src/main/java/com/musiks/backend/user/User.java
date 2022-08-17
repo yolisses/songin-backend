@@ -1,5 +1,6 @@
 package com.musiks.backend.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.musiks.backend.music.Music;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class User {
     public Set<User> follows;
     @Relationship
     public Set<Music> shares;
+    @JsonIgnore
     @Relationship
     public Set<Music> listened;
 }

@@ -1,7 +1,6 @@
-package com.musiks.backend.music;
+package com.musiks.backend.comment;
 
-
-import com.musiks.backend.comment.Comment;
+import com.musiks.backend.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,25 +10,20 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Node
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Music {
+public class Comment {
     @Id
     @GeneratedValue
-    long id;
+    Long id;
     @NotBlank
-    @NotNull
-    String name;
-    @NotNull
-    @Positive
-    int duration; // seconds
-
+    String text;
     @Relationship
+    User owner;
+    @Relationship(direction = Relationship.Direction.INCOMING)
     List<Comment> comments;
 }
