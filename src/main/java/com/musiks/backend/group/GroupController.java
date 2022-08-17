@@ -39,6 +39,16 @@ public class GroupController {
         group.loadMusics(user, musicRepo);
         groups.add(group);
 
+        group = new ByLikesCount();
+        group.name = "As tops das tops";
+        group.loadMusics(user, musicRepo);
+        groups.add(group);
+
+        group = new ByFollowersLikes();
+        group.name = "Selo de qualidade pessoas que você segue";
+        group.loadMusics(user, musicRepo);
+        groups.add(group);
+
         return groups;
     }
 }
