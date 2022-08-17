@@ -1,6 +1,7 @@
 package com.musiks.backend.music;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.musiks.backend.comment.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,16 +21,21 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Music {
+    boolean mock;
+
     @Id
     @GeneratedValue
     long id;
-    @NotBlank
+
     @NotNull
+    @NotBlank
     String name;
+
     @NotNull
     @Positive
     int duration; // seconds
+
+    @JsonIgnore
     @Relationship
     public List<Comment> comments;
-    boolean mock;
 }

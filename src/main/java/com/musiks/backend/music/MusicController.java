@@ -2,6 +2,7 @@ package com.musiks.backend.music;
 
 import com.musiks.backend.auth.Auth;
 import com.musiks.backend.comment.Comment;
+import com.musiks.backend.comment.CommentRepo;
 import com.musiks.backend.user.UserRepo;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,6 +21,7 @@ public class MusicController {
     Auth auth;
     UserRepo userRepo;
     MusicRepo musicRepo;
+    CommentRepo commentRepo;
     ModelMapper modelMapper;
 
     @GetMapping("/history")
@@ -80,5 +82,21 @@ public class MusicController {
                 HttpStatus.NOT_FOUND, "Music not found"
         );
         return music.get().comments;
+    }
+
+    @PostMapping("/{id}/comments")
+    Comment comment(@PathVariable long id,
+                    HttpServletRequest req,
+                    @RequestBody String text) {
+
+        var user = auth.getUser(req);
+        var music = musicRepo.findById(id);
+        if (music.isEmpty()) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Music not found"
+        );
+        var comment = new Comment();
+        comment.setText(text);
+        comment.setOwner(user);
+        return commentRepo.save(comment);
     }
 }
