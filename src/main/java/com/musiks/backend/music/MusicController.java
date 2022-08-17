@@ -85,7 +85,7 @@ public class MusicController {
     }
 
     @GetMapping("/search")
-    List<Music> comments(@RequestParam String q) {
+    List<Music> search(@RequestParam String q) {
         var musics = musicRepo.fulltextSearch(q);
         return musics;
     }

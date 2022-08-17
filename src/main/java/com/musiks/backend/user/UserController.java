@@ -73,6 +73,12 @@ public class UserController {
         userRepo.save(currentUser);
     }
 
+    @GetMapping("/search")
+    List<User> search(@RequestParam String q) {
+        var users = userRepo.fulltextSearch(q);
+        return users;
+    }
+
     @GetMapping("/{id}/feed")
     List<Music> feed(@PathVariable long id) {
         var user = userRepo.findById(id);
