@@ -3,6 +3,7 @@ package com.musiks.backend.auth;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.musiks.backend.user.User;
 import com.musiks.backend.user.UserRepo;
+import com.musiks.backend.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ public class AuthController {
     UserRepo userRepo;
     TokenVerifier verifier;
     SessionRepo sessionRepo;
+    UserService userService;
 
     @PostMapping("/logout")
     void logout(HttpServletRequest req,
@@ -69,7 +71,7 @@ public class AuthController {
             user.email = email;
             user.name = payload.get("name").toString();
             user.image = payload.get("picture").toString();
-            userRepo.save(user);
+            userService.insertUser(user);
             res.setStatus(201);
         } else {
             res.setStatus(200);

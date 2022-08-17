@@ -27,9 +27,10 @@ public class User {
     public String name;
     public String image;
     public boolean mock;
-    @Index(unique = true)
+
     @Required
-    private String nickname;
+    @Index(unique = true)
+    public String nickname;
 
     @Email
     @Required

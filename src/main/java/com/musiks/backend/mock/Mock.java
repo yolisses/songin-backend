@@ -7,6 +7,7 @@ import com.musiks.backend.music.Music;
 import com.musiks.backend.music.MusicRepo;
 import com.musiks.backend.user.User;
 import com.musiks.backend.user.UserRepo;
+import com.musiks.backend.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,6 +24,7 @@ public class Mock {
     MockRepo mockRepo;
     UserRepo userRepo;
     MusicRepo musicRepo;
+    UserService userService;
     CommentRepo commentRepo;
     final Random random = new Random();
     final Faker faker = new Faker(new Locale("pt-BR"));
@@ -64,7 +66,7 @@ public class Mock {
             user.listened = new HashSet<>();
             user.name = faker.name().fullName();
             user.email = faker.internet().emailAddress();
-            userRepo.save(user);
+            userService.insertUser(user);
             user.image = String.format("https://picsum.photos/id/%d/96/96", user.id);
             var listenedCount = random.nextGaussian() * 20 + 20;
             for (var j = 0; j < listenedCount; j++) {

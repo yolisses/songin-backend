@@ -16,4 +16,9 @@ public interface UserRepo extends Neo4jRepository<User, Long> {
 
     @Query("match (u:User)-[r:FOLLOWS]->(o:User) where id(u) = $sourceId and id(o) = $targetId return count(r)>0")
     boolean doFollows(long sourceId, long targetId);
+
+    @Query("match (u:User) where u.nickname=~ '$1(\\d)*'  return count(u)")
+    int countByNickname(String nickname);
+
+    User findByNickname(String nickname);
 }
