@@ -10,7 +10,6 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Node
 @Data
@@ -24,6 +23,5 @@ public class Comment {
     String text;
     @Relationship
     User owner;
-    @Relationship(direction = Relationship.Direction.INCOMING)
-    List<Comment> comments;
+    boolean mock;
 }

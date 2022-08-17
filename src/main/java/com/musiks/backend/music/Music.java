@@ -29,7 +29,7 @@ public class Music {
     @NotNull
     @Positive
     int duration; // seconds
-
     @Relationship
-    List<Comment> comments;
+    public List<Comment> comments;
+    boolean mock;
 }

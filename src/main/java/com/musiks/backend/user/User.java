@@ -32,4 +32,5 @@ public class User {
     @JsonIgnore
     @Relationship
     public Set<Music> listened;
+    public boolean mock;
 }
