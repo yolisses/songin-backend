@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -34,6 +34,14 @@ public class Mock {
         return (int) Math.max(duration, 100);
     }
 
+    <Type> Type randomChoice(List<Type> options) {
+        return options.get(random.nextInt(options.size()));
+    }
+
+    boolean randomChance(double percentage) {
+        return random.nextDouble() < percentage;
+    }
+
     String getCommentText() {
         var value = random.nextDouble();
         double options = 3;
@@ -52,7 +60,6 @@ public class Mock {
             music.setMock(true);
             music.setName(faker.book().title());
             music.setDuration(randomDuration());
-            music.setComments(new ArrayList<>());
             musicRepo.save(music);
             musics.add(music);
         }
@@ -62,8 +69,6 @@ public class Mock {
         for (var i = 0; i < usersCount; i++) {
             var user = new User();
             user.mock = true;
-            user.likes = new HashSet<>();
-            user.listened = new HashSet<>();
             user.name = faker.name().fullName();
             user.email = faker.internet().emailAddress();
             userService.insertUser(user);
@@ -72,10 +77,10 @@ public class Mock {
             for (var j = 0; j < listenedCount; j++) {
                 var music = musics.get(random.nextInt(musics.size()));
                 user.listened.add(music);
-                if (random.nextDouble() < 0.4) {
+                if (randomChance(0.4)) {
                     user.likes.add(music);
                 }
-                if (random.nextDouble() < 0.2) {
+                if (randomChance(0.1)) {
                     var comment = new Comment();
                     comment.setMock(true);
                     comment.setOwner(user);
@@ -89,5 +94,14 @@ public class Mock {
             users.add(user);
         }
 
+        for (var user : users) {
+            var followingCount = random.nextGaussian() * 10 + 4;
+            for (var i = 0; i < followingCount; i++) {
+                var following = randomChoice(users);
+                if (user != following)
+                    user.follows.add(following);
+            }
+            userRepo.save(user);
+        }
     }
 }

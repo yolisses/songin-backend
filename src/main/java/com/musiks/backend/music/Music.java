@@ -14,6 +14,7 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.ArrayList;
 import java.util.List;
 
 @Node
@@ -37,5 +38,5 @@ public class Music {
 
     @JsonIgnore
     @Relationship
-    public List<Comment> comments;
+    public List<Comment> comments = new ArrayList<>();
 }
