@@ -75,6 +75,10 @@ public class MusicController {
         userRepo.save(user);
     }
 
+    @GetMapping("/search")
+    List<Music> search(@RequestParam String q) {
+        return musicRepo.fulltextSearch(q);
+    }
 
     @GetMapping("/{id}/comments")
     List<Comment> comments(@PathVariable long id) {
