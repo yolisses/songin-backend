@@ -44,16 +44,6 @@ public class AuthController {
     }
 
 
-    void addSessionCookie(HttpServletResponse res, String sessionId) {
-        var secondsPerDay = 24 * 60 * 60;
-        var maxAge = Session.weeksDuration * secondsPerDay;
-
-        var sessionCookie = new Cookie("session_id", sessionId);
-        sessionCookie.setHttpOnly(true);
-        sessionCookie.setMaxAge(maxAge);
-        res.addCookie(sessionCookie);
-    }
-
     @PostMapping("/sign-in")
     User signIn(@RequestBody String token,
                 HttpServletResponse res,
@@ -80,7 +70,7 @@ public class AuthController {
 
         var session = new Session(user, req.getRemoteAddr());
         sessionRepo.save(session);
-        addSessionCookie(res, session.getId());
+        auth.addSessionCookie(res, session.getId());
         return user;
     }
 }

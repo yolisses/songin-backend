@@ -8,11 +8,23 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @AllArgsConstructor
 public class Auth {
     SessionRepo sessionRepo;
+
+    public void addSessionCookie(HttpServletResponse res, String sessionId) {
+        var secondsPerDay = 24 * 60 * 60;
+        var maxAge = Session.weeksDuration * secondsPerDay;
+
+        var sessionCookie = new Cookie("session_id", sessionId);
+        sessionCookie.setPath("/");
+        sessionCookie.setHttpOnly(true);
+        sessionCookie.setMaxAge(maxAge);
+        res.addCookie(sessionCookie);
+    }
 
     private void throwForbidden(String text) {
         throw new ResponseStatusException(

@@ -10,6 +10,8 @@ public interface UserRepo extends Neo4jRepository<User, Long> {
 
     User findByNickname(String nickname);
 
+    User findFirstByMockTrue();
+
     @Query("match (o:User)-[r:FOLLOWS]->(u:User) where id(u) = $id return count(o)")
     int followersCount(long id);
 

@@ -25,6 +25,7 @@ public class Session {
     private boolean loggedOut;
     static int weeksDuration = 1;
     private ZonedDateTime createdAt;
+    boolean mock;
 
     public Session(User user, String ip) {
         this.ip = ip;
