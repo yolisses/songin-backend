@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -20,6 +21,30 @@ public class UserController {
         return auth.getUser(req);
     }
 
+    void validateFound(Optional<User> user) {
+        if (user.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "User not found"
+            );
+        }
+    }
+
+
+    @GetMapping("/{id}/profile")
+    ProfileDTO profile(HttpServletRequest req, @PathVariable long id) {
+        var currentUser = auth.getUser(req);
+        var user = userRepo.findById(id);
+        validateFound(user);
+        var following = userRepo.doFollows(currentUser.id, user.get().id);
+        var followersCount = userRepo.followersCount(id);
+        var followingCount = userRepo.followingCount(id);
+        return new ProfileDTO(
+                user.get(),
+                following,
+                followersCount,
+                followingCount
+        );
+    }
 
     @PostMapping("/{id}/follow")
     void follow(HttpServletRequest req, @PathVariable long id) {
@@ -30,11 +55,7 @@ public class UserController {
             );
         }
         var user = userRepo.findById(id);
-        if (user.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "User not found"
-            );
-        }
+        validateFound(user);
         currentUser.follows.add(user.get());
         userRepo.save(currentUser);
     }
@@ -43,11 +64,7 @@ public class UserController {
     void unfollow(HttpServletRequest req, @PathVariable long id) {
         var currentUser = auth.getUser(req);
         var user = userRepo.findById(id);
-        if (user.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "User not found"
-            );
-        }
+        validateFound(user);
         currentUser.follows.remove(user.get());
         userRepo.save(currentUser);
     }
