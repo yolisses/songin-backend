@@ -12,14 +12,12 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import javax.validation.constraints.Email;
-import java.util.HashSet;
 import java.util.Set;
 
 
 @Node
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class User {
     @Id
     @GeneratedValue
@@ -40,21 +38,17 @@ public class User {
 
     @JsonIgnore
     @Relationship
-    public Set<Music> likes = new HashSet<>();
+    public Set<Music> likes;
 
     @JsonIgnore
     @Relationship
-    public Set<User> follows = new HashSet<>();
+    public Set<User> follows;
 
     @JsonIgnore
     @Relationship
-    public Set<Music> shares = new HashSet<>();
+    public Set<Music> shares;
 
     @JsonIgnore
     @Relationship
-    public Set<Music> listened = new HashSet<>();
-
-    public boolean equals(User user) {
-        return this.id == user.id;
-    }
+    public Set<Music> listened;
 }

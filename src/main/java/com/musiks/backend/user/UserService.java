@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     UserRepo userRepo;
 
-    private String createNickname(String name) {
+    public String createNickname(String name) {
         var nicknameBase = name.replaceAll("\\W", "");
         nicknameBase = nicknameBase.toLowerCase();
 
@@ -28,10 +28,5 @@ public class UserService {
             nickname = nicknameBase.concat(String.valueOf(count));
         }
         throw new UsernameNicknameException();
-    }
-
-    public User insertUser(User user) {
-        user.nickname = createNickname(user.name);
-        return userRepo.save(user);
     }
 }

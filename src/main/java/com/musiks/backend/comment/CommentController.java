@@ -1,6 +1,7 @@
 package com.musiks.backend.comment;
 
 import com.musiks.backend.auth.Auth;
+import com.musiks.backend.music.MusicRepo;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/comments")
 public class CommentController {
     Auth auth;
+    MusicRepo musicRepo;
     CommentRepo commentRepo;
 
     @DeleteMapping("/{id}")

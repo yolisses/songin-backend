@@ -75,26 +75,20 @@ public class MusicController {
         userRepo.save(user);
     }
 
+
     @GetMapping("/{id}/comments")
     List<Comment> comments(@PathVariable long id) {
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Music not found"
         );
-        return music.get().comments;
-    }
-
-    @GetMapping("/search")
-    List<Music> search(@RequestParam String q) {
-        var musics = musicRepo.fulltextSearch(q);
-        return musics;
+        return commentRepo.findCommentsByRefers(music.get());
     }
 
     @PostMapping("/{id}/comments")
     Comment comment(@PathVariable long id,
                     HttpServletRequest req,
                     @RequestBody String text) {
-
         var user = auth.getUser(req);
         var music = musicRepo.findById(id);
         if (music.isEmpty()) throw new ResponseStatusException(
@@ -105,4 +99,5 @@ public class MusicController {
         comment.setOwner(user);
         return commentRepo.save(comment);
     }
+
 }

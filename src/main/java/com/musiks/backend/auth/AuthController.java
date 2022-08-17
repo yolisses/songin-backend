@@ -71,7 +71,8 @@ public class AuthController {
             user.email = email;
             user.name = payload.get("name").toString();
             user.image = payload.get("picture").toString();
-            userService.insertUser(user);
+            user.nickname = userService.createNickname(user.name);
+            userRepo.save(user);
             res.setStatus(201);
         } else {
             res.setStatus(200);

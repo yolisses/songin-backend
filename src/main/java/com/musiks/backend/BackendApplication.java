@@ -1,8 +1,7 @@
 package com.musiks.backend;
 
 import com.musiks.backend.mock.Mock;
-import com.musiks.backend.music.MusicRepo;
-import com.musiks.backend.user.UserRepo;
+import com.musiks.backend.search.SearchRepo;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
@@ -14,8 +13,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class BackendApplication {
     Mock mock;
-    UserRepo userRepo;
-    MusicRepo musicRepo;
+    SearchRepo searchRepo;
 
     public static void main(String[] args) {
         SpringApplication.run(BackendApplication.class, args);
@@ -28,8 +26,7 @@ public class BackendApplication {
 
     @Bean
     CommandLineRunner commandLineRunner() {
-        userRepo.addNameIndex();
-        musicRepo.addNameIndex();
+        searchRepo.addNameIndex();
         boolean runMock = true;
         return args -> {
             if (runMock)

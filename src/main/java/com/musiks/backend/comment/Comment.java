@@ -1,5 +1,6 @@
 package com.musiks.backend.comment;
 
+import com.musiks.backend.music.Music;
 import com.musiks.backend.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,5 +24,7 @@ public class Comment {
     String text;
     @Relationship
     User owner;
+    @Relationship
+    Music refers;
     boolean mock;
 }
