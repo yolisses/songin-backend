@@ -32,7 +32,11 @@ public class MusicController {
     @GetMapping("/feed")
     List<Music> feed(HttpServletRequest req) {
         var user = auth.getUser(req);
-        return musicRepo.sortedByAllRelations(user.id);
+        var musics = musicRepo.sortedByAllRelations(user.id);
+        if (musics.size() == 0) {
+            musics = musicRepo.mostLiked();
+        }
+        return musics;
     }
 
     @GetMapping("/{id}/listen")

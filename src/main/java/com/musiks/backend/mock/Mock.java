@@ -5,6 +5,8 @@ import com.musiks.backend.artist.Artist;
 import com.musiks.backend.artist.ArtistRepo;
 import com.musiks.backend.comment.Comment;
 import com.musiks.backend.comment.CommentRepo;
+import com.musiks.backend.genre.Genre;
+import com.musiks.backend.genre.GenreRepo;
 import com.musiks.backend.music.Music;
 import com.musiks.backend.music.MusicRepo;
 import com.musiks.backend.user.User;
@@ -13,10 +15,7 @@ import com.musiks.backend.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 
 @Configuration
@@ -30,10 +29,13 @@ public class Mock {
     final int userSharesCount = 1;
     final int userCommentsCount = 2;
     final int userListenedCount = 10;
+    final int musicGenresCount = 3;
+    final int genresCount = 100;
 
     MockRepo mockRepo;
     UserRepo userRepo;
     MusicRepo musicRepo;
+    GenreRepo genreRepo;
     ArtistRepo artistRepo;
     UserService userService;
     CommentRepo commentRepo;
@@ -56,6 +58,7 @@ public class Mock {
         if (value < 2 / options) return faker.hobbit().quote();
         return faker.yoda().quote();
     }
+
 
     void addMusics() {
         var musics = new ArrayList<Music>();
@@ -87,6 +90,31 @@ public class Mock {
         }
         userRepo.save(user);
     }
+
+    void addGenres() {
+        Set<String> genreNames = new HashSet<>();
+        for (int i = 0; i < genresCount; i++) {
+            var name = faker.music().genre();
+            genreNames.add(name);
+        }
+        List<Genre> genres = new ArrayList<>();
+        for (var name : genreNames) {
+            var genre = new Genre();
+            genre.setMock(true);
+            genre.setName(name);
+            genres.add(genre);
+        }
+        genres = genreRepo.saveAll(genres);
+        var musics = musicRepo.findAll();
+        for (var music : musics) {
+            for (int i = 0; i < musicGenresCount; i++) {
+                var genre = randomChoice(genres);
+                music.getGenres().add(genre);
+            }
+        }
+        musicRepo.saveAll(musics);
+    }
+
 
     void addComments(User user) {
         for (int i = 0; i < userCommentsCount; i++) {
@@ -149,6 +177,7 @@ public class Mock {
         mockRepo.deleteMock();
         addUsers();
         addMusics();
+        addGenres();
         addListened();
         addFollowers();
     }
