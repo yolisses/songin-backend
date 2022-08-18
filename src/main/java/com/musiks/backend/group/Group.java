@@ -1,5 +1,6 @@
 package com.musiks.backend.group;
 
+import com.musiks.backend.artist.ArtistRepo;
 import com.musiks.backend.music.Music;
 import com.musiks.backend.music.MusicRepo;
 import com.musiks.backend.user.User;
@@ -16,11 +17,11 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class Group {
+public abstract class Group<Type> {
     String name;
     String type;
     @Relationship
-    List<Music> musics;
+    List<Music> items;
 
-    public abstract void loadMusics(User user, MusicRepo musicRepo);
+    public abstract void loadMusics(User user, MusicRepo musicRepo, ArtistRepo artistRepo);
 }

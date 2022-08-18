@@ -1,5 +1,6 @@
 package com.musiks.backend.group;
 
+import com.musiks.backend.artist.ArtistRepo;
 import com.musiks.backend.auth.Auth;
 import com.musiks.backend.music.MusicRepo;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.List;
 public class GroupController {
     Auth auth;
     MusicRepo musicRepo;
+    ArtistRepo artistRepo;
 
     @GetMapping("/recommend")
     public List<Group> recommend(HttpServletRequest req) {
@@ -26,27 +28,32 @@ public class GroupController {
 
         group = new ByUsersWithSimilarLikes();
         group.name = "Outros estão curtindo";
-        group.loadMusics(user, musicRepo);
+        group.loadMusics(user, musicRepo, artistRepo);
         groups.add(group);
 
         group = new ByHistory();
         group.name = "Escutar de novo";
-        group.loadMusics(user, musicRepo);
+        group.loadMusics(user, musicRepo, artistRepo);
         groups.add(group);
 
         group = new ByLikedMusic();
         group.name = "Pra quem gosta de ";
-        group.loadMusics(user, musicRepo);
+        group.loadMusics(user, musicRepo, artistRepo);
         groups.add(group);
 
         group = new ByLikesCount();
         group.name = "As tops das tops";
-        group.loadMusics(user, musicRepo);
+        group.loadMusics(user, musicRepo, artistRepo);
         groups.add(group);
 
         group = new ByFollowersLikes();
         group.name = "Selo de qualidade pessoas que você segue";
-        group.loadMusics(user, musicRepo);
+        group.loadMusics(user, musicRepo, artistRepo);
+        groups.add(group);
+
+        group = new ByArtistsYouFollow();
+        group.name = "Dos artistas que você segue";
+        group.loadMusics(user, musicRepo, artistRepo);
         groups.add(group);
 
         return groups;

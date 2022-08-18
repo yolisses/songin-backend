@@ -26,4 +26,7 @@ public interface MusicRepo extends Neo4jRepository<Music, Long> {
 
     @Query("match (m1:Music)<-[:LIKES]-(u:User)-[:LIKES]->(m2:Music) where id(m1) = $musicId return m2")
     public List<Music> usersThatLikedAlsoLikedThese(long musicId);
+
+    @Query("match (m:Music)-[:OWNER]->(a:Artist)<-[:FOLLOWS]-(u:User) where id(u) = $userId return m")
+    public List<Music> fromArtistsYouFollow(long userId);
 }

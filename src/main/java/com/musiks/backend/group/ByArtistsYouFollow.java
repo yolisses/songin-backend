@@ -5,10 +5,8 @@ import com.musiks.backend.music.Music;
 import com.musiks.backend.music.MusicRepo;
 import com.musiks.backend.user.User;
 
-public class ByHistory extends Group<Music> {
-    final String type = "by_history";
-
+public class ByArtistsYouFollow extends Group<Music> {
     public void loadMusics(User user, MusicRepo musicRepo, ArtistRepo artistRepo) {
-        items = user.listened;
+        items = musicRepo.fromArtistsYouFollow(user.id);
     }
 }
