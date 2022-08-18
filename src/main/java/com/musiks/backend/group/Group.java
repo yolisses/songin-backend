@@ -1,6 +1,7 @@
 package com.musiks.backend.group;
 
 import com.musiks.backend.artist.ArtistRepo;
+import com.musiks.backend.genre.GenreRepo;
 import com.musiks.backend.music.Music;
 import com.musiks.backend.music.MusicRepo;
 import com.musiks.backend.user.User;
@@ -23,5 +24,5 @@ public abstract class Group<Type> {
     @Relationship
     List<Music> items;
 
-    public abstract void loadMusics(User user, MusicRepo musicRepo, ArtistRepo artistRepo);
+    public abstract void loadMusics(User user, MusicRepo musicRepo, ArtistRepo artistRepo, GenreRepo genreRepo);
 }

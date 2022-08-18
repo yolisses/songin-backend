@@ -6,10 +6,15 @@ import com.musiks.backend.music.Music;
 import com.musiks.backend.music.MusicRepo;
 import com.musiks.backend.user.User;
 
-public class ByFollowersLikes extends Group<Music> {
-    final String type = "by_followers_likes";
+import java.util.Random;
+
+public class ByGenre extends Group<Music> {
+    final Random random = new Random();
 
     public void loadMusics(User user, MusicRepo musicRepo, ArtistRepo artistRepo, GenreRepo genreRepo) {
-        items = musicRepo.followedUsersLikeThese(user.id);
+        var genres = genreRepo.findAll();
+        var genre = genres.get(random.nextInt(genres.size()));
+        setName(name.concat(genre.getName()));
+        items = musicRepo.fromGenre(genre.getName());
     }
 }

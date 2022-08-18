@@ -144,7 +144,7 @@ public class Mock {
     }
 
     void addUsers() {
-        var users = new ArrayList<User>();
+        List<User> users = new ArrayList<>();
         for (int i = 0; i < usersCount; i++) {
             User user;
             if (i < artistsCount) {
@@ -156,6 +156,11 @@ public class Mock {
             user.name = faker.name().fullName();
             user.email = faker.internet().emailAddress();
             users.add(user);
+        }
+        users = userRepo.saveAll(users);
+        for (var user : users) {
+            user.image = String.format("https://picsum.photos/id/%d/96/96", user.id);
+            user.nickname = userService.createNickname(user.name);
         }
         userRepo.saveAll(users);
     }
