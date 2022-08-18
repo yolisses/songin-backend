@@ -18,6 +18,9 @@ public interface MusicRepo extends Neo4jRepository<Music, Long> {
     @Query("match (m:Music)<-[l:LIKES]-(u) return m, count(l) order by count(l) desc")
     public List<Music> mostLiked();
 
+    @Query("match(u:User)-[r]-()-[]-()-[]-(m:Music) where id(u)=$userId return m, count(r) order by count(r) desc")
+    public List<Music> sortedByAllRelations(long userId);
+
     @Query("match (u1:User)-[:FOLLOWS]->(u2:User)-[l:LIKES]->(m:Music) where id(u1)=$userId return m, count(l) order by count(l) desc")
     public List<Music> followedUsersLikeThese(long userId);
 

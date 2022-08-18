@@ -26,9 +26,10 @@ public class Mock {
     final int artistsCount = 5;
     final int musicsCount = 50;
     final int followsCount = 4;
-    final int userListenedCount = 10;
-    final int userCommentsCount = 2;
     final int userLikesCount = 4;
+    final int userSharesCount = 1;
+    final int userCommentsCount = 2;
+    final int userListenedCount = 10;
 
     MockRepo mockRepo;
     UserRepo userRepo;
@@ -77,7 +78,14 @@ public class Mock {
             user.likes.add(music);
         }
         userRepo.save(user);
+    }
 
+    void addShares(User user) {
+        for (int i = 0; i < userSharesCount; i++) {
+            var music = user.listened.get(i);
+            user.shares.add(music);
+        }
+        userRepo.save(user);
     }
 
     void addComments(User user) {
@@ -101,6 +109,7 @@ public class Mock {
                 user.listened.add(music);
             }
             addLikes(user);
+            addShares(user);
             addComments(user);
         }
         userRepo.saveAll(users);

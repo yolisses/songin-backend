@@ -29,6 +29,12 @@ public class MusicController {
         return user.listened;
     }
 
+    @GetMapping("/feed")
+    List<Music> feed(HttpServletRequest req) {
+        var user = auth.getUser(req);
+        return musicRepo.sortedByAllRelations(user.id);
+    }
+
     @GetMapping("/{id}/listen")
     String listen(HttpServletRequest req, @PathVariable long id) {
         var user = auth.getUser(req);
