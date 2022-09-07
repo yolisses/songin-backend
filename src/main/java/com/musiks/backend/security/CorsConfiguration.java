@@ -14,6 +14,7 @@ public class CorsConfiguration implements WebMvcConfigurer {
                         "http://localhost:8080",
                         "https://sonhin.com",
                         "https://api.sonhin.com"
-                );
+                )
+                .allowCredentials(true);
     }
 }
