@@ -4,7 +4,8 @@
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 <script>
     async function signIn({credential}) {
-        const user = await axios.post('http://localhost:8080/sign-in', credential)
+        const url = location.origin + '/sign-in'
+        const user = await axios.post(url, credential)
         console.log(user)
     }
 </script>
