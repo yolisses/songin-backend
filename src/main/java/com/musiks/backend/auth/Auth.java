@@ -16,6 +16,19 @@ public class Auth {
     SessionRepo sessionRepo;
     public static String cookieName = "session_id";
 
+    public String getSessionId(HttpServletRequest req) {
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+            for (var cookie : cookies) {
+                if (cookie.getName().equals(cookieName)) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        throwForbidden("Missing " + cookieName + " cookie");
+        return null;
+    }
+
     public static void addSessionCookie(HttpServletResponse res, String sessionId) {
         var secondsPerDay = 24 * 60 * 60;
         var maxAge = Session.weeksDuration * secondsPerDay;
@@ -23,6 +36,7 @@ public class Auth {
         var sessionCookie = new Cookie(cookieName, sessionId);
         sessionCookie.setPath("/");
         sessionCookie.setHttpOnly(true);
+        sessionCookie.setDomain("sonhin.com");
         sessionCookie.setMaxAge(maxAge);
         res.addCookie(sessionCookie);
     }
@@ -40,18 +54,6 @@ public class Auth {
         );
     }
 
-    public String getSessionId(HttpServletRequest req) {
-        Cookie[] cookies = req.getCookies();
-        if (cookies != null) {
-            for (var cookie : cookies) {
-                if (cookie.getName().equals(cookieName)) {
-                    return cookie.getValue();
-                }
-            }
-        }
-        throwForbidden("Missing " + cookieName + " cookie");
-        return null;
-    }
 
     public User getUser(HttpServletRequest req) {
         var sessionId = getSessionId(req);
