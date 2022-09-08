@@ -19,7 +19,7 @@ public class Auth {
     public static String cookieName = "session_id";
 
     public String getSessionId(HttpServletRequest req) {
-        Cookie[] cookies = req.getCookies();
+        var cookies = req.getCookies();
         if (cookies != null) {
             for (var cookie : cookies) {
                 if (cookie.getName().equals(cookieName)) {
