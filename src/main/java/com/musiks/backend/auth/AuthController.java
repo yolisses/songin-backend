@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -27,22 +26,13 @@ public class AuthController {
     UserService userService;
 
     @PostMapping("/logout")
-    void logout(HttpServletRequest req,
-                HttpServletResponse res) {
+    void logout(HttpServletRequest req, HttpServletResponse res) {
         var sessionId = auth.getSessionId(req);
         var session = sessionRepo.findSessionById(sessionId);
         session.setLoggedOut(true);
         sessionRepo.save(session);
-        removeSessionCookie(res);
+        Auth.removeSessionCookie(res);
     }
-
-    void removeSessionCookie(HttpServletResponse res) {
-        var sessionCookie = new Cookie("session_id", null);
-        sessionCookie.setHttpOnly(true);
-        sessionCookie.setMaxAge(0);
-        res.addCookie(sessionCookie);
-    }
-
 
     @PostMapping("/sign-in")
     User signIn(@RequestBody String token,
@@ -70,7 +60,7 @@ public class AuthController {
 
         var session = new Session(user, req.getRemoteAddr());
         sessionRepo.save(session);
-        auth.addSessionCookie(res, session.getId());
+        Auth.addSessionCookie(res, session.getId());
         return user;
     }
 }

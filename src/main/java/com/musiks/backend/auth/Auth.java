@@ -14,17 +14,26 @@ import javax.servlet.http.HttpServletResponse;
 @AllArgsConstructor
 public class Auth {
     SessionRepo sessionRepo;
+    public static String cookieName = "session_id";
 
-    public void addSessionCookie(HttpServletResponse res, String sessionId) {
+    static void addSessionCookie(HttpServletResponse res, String sessionId) {
         var secondsPerDay = 24 * 60 * 60;
         var maxAge = Session.weeksDuration * secondsPerDay;
 
-        var sessionCookie = new Cookie("session_id", sessionId);
+        var sessionCookie = new Cookie(cookieName, sessionId);
         sessionCookie.setPath("/");
         sessionCookie.setHttpOnly(true);
         sessionCookie.setMaxAge(maxAge);
         res.addCookie(sessionCookie);
     }
+
+    static void removeSessionCookie(HttpServletResponse res) {
+        var sessionCookie = new Cookie(cookieName, null);
+        sessionCookie.setHttpOnly(true);
+        sessionCookie.setMaxAge(0);
+        res.addCookie(sessionCookie);
+    }
+
 
     private void throwForbidden(String text) {
         throw new ResponseStatusException(
@@ -36,12 +45,12 @@ public class Auth {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (var cookie : cookies) {
-                if (cookie.getName().equals("session_id")) {
+                if (cookie.getName().equals(cookieName)) {
                     return cookie.getValue();
                 }
             }
         }
-        throwForbidden("Missing session_id cookie");
+        throwForbidden("Missing " + cookieName + " cookie");
         return null;
     }
 
@@ -63,13 +72,5 @@ public class Auth {
             throwForbidden("Session expired");
 
         return session.getUser();
-    }
-
-    public User getUserOrNull(HttpServletRequest req) {
-        try {
-            return getUser(req);
-        } catch (ResponseStatusException e) {
-            return null;
-        }
     }
 }

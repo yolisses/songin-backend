@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping("/me")
     User me(HttpServletRequest req) {
-        return auth.getUserOrNull(req);
+        return auth.getUser(req);
     }
 
     void validateFound(Optional<User> user) {
@@ -30,7 +30,6 @@ public class UserController {
             );
         }
     }
-
 
     @GetMapping("/{id}/profile")
     ProfileDTO profile(HttpServletRequest req, @PathVariable long id) {

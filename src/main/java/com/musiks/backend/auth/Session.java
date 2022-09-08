@@ -16,6 +16,7 @@ import java.time.ZonedDateTime;
 @Data
 @NoArgsConstructor
 public class Session {
+    boolean mock;
     @Id
     @GeneratedValue(generatorClass = UUIDStringGenerator.class)
     private String id;
@@ -25,7 +26,6 @@ public class Session {
     private boolean loggedOut;
     static int weeksDuration = 1;
     private ZonedDateTime createdAt;
-    boolean mock;
 
     public Session(User user, String ip) {
         this.ip = ip;
