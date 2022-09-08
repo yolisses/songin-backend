@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping("/me")
     User me(HttpServletRequest req) {
-        return auth.getUser(req);
+        return auth.getUserOrNull(req);
     }
 
     void validateFound(Optional<User> user) {

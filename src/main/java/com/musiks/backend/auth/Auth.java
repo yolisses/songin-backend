@@ -34,9 +34,11 @@ public class Auth {
 
     public String getSessionId(HttpServletRequest req) {
         Cookie[] cookies = req.getCookies();
-        for (var cookie : cookies) {
-            if (cookie.getName().equals("session_id")) {
-                return cookie.getValue();
+        if (cookies != null) {
+            for (var cookie : cookies) {
+                if (cookie.getName().equals("session_id")) {
+                    return cookie.getValue();
+                }
             }
         }
         throwForbidden("Missing session_id cookie");
@@ -61,5 +63,13 @@ public class Auth {
             throwForbidden("Session expired");
 
         return session.getUser();
+    }
+
+    public User getUserOrNull(HttpServletRequest req) {
+        try {
+            return getUser(req);
+        } catch (ResponseStatusException e) {
+            return null;
+        }
     }
 }
