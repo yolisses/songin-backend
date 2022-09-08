@@ -20,7 +20,6 @@ public class CorsConfiguration {
                                 "https://api.sonhin.com",
                                 "*"
                         )
-                        .allowedMethods()
                         .allowCredentials(true);
             }
         };
