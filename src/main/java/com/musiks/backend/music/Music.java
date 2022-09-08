@@ -38,6 +38,10 @@ public class Music {
     List<Genre> genres;
 
     @NotNull
+    @NotBlank
+    String image;
+
+    @NotNull
     @Positive
     int duration; // seconds
 }

@@ -70,6 +70,9 @@ public class Mock {
             music.setOwner(artist);
             music.setName(faker.book().title());
             music.setDuration(randomDuration());
+            var imageOptions = 1080;// images count from lorem picsum
+            var imageId = random.nextInt(imageOptions);
+            music.setImage("https://picsum.photos/id/" + imageId + "/512/512");
             musics.add(music);
         }
         musicRepo.saveAll(musics);
