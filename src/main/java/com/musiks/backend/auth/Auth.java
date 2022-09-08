@@ -3,7 +3,9 @@ package com.musiks.backend.auth;
 import com.musiks.backend.user.User;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.Cookie;
@@ -32,12 +34,14 @@ public class Auth {
     public static void addSessionCookie(HttpServletResponse res, String sessionId) {
         var secondsPerDay = 24 * 60 * 60;
         var maxAge = Session.weeksDuration * secondsPerDay;
-
-        var sessionCookie = new Cookie(cookieName, sessionId);
-        sessionCookie.setPath("/");
-        sessionCookie.setHttpOnly(true);
-        sessionCookie.setMaxAge(maxAge);
-        res.addCookie(sessionCookie);
+        final ResponseCookie responseCookie = ResponseCookie
+                .from(cookieName, sessionId)
+                .httpOnly(true)
+                .path("/")
+                .maxAge(maxAge)
+                .sameSite("Lax")
+                .build();
+        res.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
     }
 
     public static void removeSessionCookie(HttpServletResponse res) {
