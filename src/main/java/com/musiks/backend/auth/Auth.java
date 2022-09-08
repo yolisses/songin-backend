@@ -39,7 +39,6 @@ public class Auth {
                 .httpOnly(true)
                 .path("/")
                 .maxAge(maxAge)
-                .sameSite("Lax")
                 .domain("sonhin.com")
                 .build();
         res.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
