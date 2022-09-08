@@ -14,10 +14,11 @@ public class CorsConfiguration {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins(
+                                "http://localhost",
+                                "http://127.0.0.1",
                                 "https://sonhin.com",
-                                "http://localhost:3000",
-                                "http://localhost:8080",
-                                "https://api.sonhin.com"
+                                "https://api.sonhin.com",
+                                "*"
                         )
                         .allowCredentials(true);
             }
