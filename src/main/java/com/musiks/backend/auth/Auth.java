@@ -16,7 +16,7 @@ public class Auth {
     SessionRepo sessionRepo;
     public static String cookieName = "session_id";
 
-    static void addSessionCookie(HttpServletResponse res, String sessionId) {
+    public static void addSessionCookie(HttpServletResponse res, String sessionId) {
         var secondsPerDay = 24 * 60 * 60;
         var maxAge = Session.weeksDuration * secondsPerDay;
 
@@ -27,13 +27,12 @@ public class Auth {
         res.addCookie(sessionCookie);
     }
 
-    static void removeSessionCookie(HttpServletResponse res) {
+    public static void removeSessionCookie(HttpServletResponse res) {
         var sessionCookie = new Cookie(cookieName, null);
         sessionCookie.setHttpOnly(true);
         sessionCookie.setMaxAge(0);
         res.addCookie(sessionCookie);
     }
-
 
     private void throwForbidden(String text) {
         throw new ResponseStatusException(
