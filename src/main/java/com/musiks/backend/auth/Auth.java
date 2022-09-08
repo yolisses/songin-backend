@@ -36,7 +36,6 @@ public class Auth {
         var sessionCookie = new Cookie(cookieName, sessionId);
         sessionCookie.setPath("/");
         sessionCookie.setHttpOnly(true);
-        sessionCookie.setDomain("sonhin.com");
         sessionCookie.setMaxAge(maxAge);
         res.addCookie(sessionCookie);
     }
@@ -53,7 +52,6 @@ public class Auth {
                 HttpStatus.FORBIDDEN, text
         );
     }
-
 
     public User getUser(HttpServletRequest req) {
         var sessionId = getSessionId(req);
