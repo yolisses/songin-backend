@@ -31,6 +31,31 @@ public class UserController {
         }
     }
 
+    void validateFound(User user) {
+        if (user == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "User not found"
+            );
+        }
+    }
+
+    @GetMapping("/username/{username}")
+    ProfileDTO profile(HttpServletRequest req, @PathVariable String username) {
+        var currentUser = auth.getUser(req);
+        var user = userRepo.findByNickname(username);
+        validateFound(user);
+        var id = user.id;
+        var following = userRepo.doFollows(currentUser.id, id);
+        var followersCount = userRepo.followersCount(id);
+        var followingCount = userRepo.followingCount(id);
+        return new ProfileDTO(
+                user,
+                following,
+                followersCount,
+                followingCount
+        );
+    }
+
     @GetMapping("/{id}/profile")
     ProfileDTO profile(HttpServletRequest req, @PathVariable long id) {
         var currentUser = auth.getUser(req);
