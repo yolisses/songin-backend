@@ -42,6 +42,10 @@ public class Music {
     String image;
 
     @NotNull
+    @NotBlank
+    String audio;
+
+    @NotNull
     @Positive
     int duration; // seconds
 }
