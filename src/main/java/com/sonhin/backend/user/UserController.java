@@ -42,7 +42,7 @@ public class UserController {
     @GetMapping("/username/{username}")
     ProfileDTO profile(HttpServletRequest req, @PathVariable String username) {
         var currentUser = auth.getUser(req);
-        var user = userRepo.findByNickname(username);
+        var user = userRepo.findByNick(username);
         validateFound(user);
         var id = user.id;
         var following = userRepo.doFollows(currentUser.id, id);

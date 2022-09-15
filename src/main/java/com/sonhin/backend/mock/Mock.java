@@ -166,7 +166,7 @@ public class Mock {
         users = userRepo.saveAll(users);
         for (var user : users) {
             user.image = String.format("https://picsum.photos/id/%d/96/96", user.id);
-            user.nickname = userService.createNickname(user.name);
+            user.nick = userService.createNick(user.name);
         }
         userRepo.saveAll(users);
     }

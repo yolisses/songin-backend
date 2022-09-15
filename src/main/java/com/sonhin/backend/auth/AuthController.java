@@ -51,7 +51,7 @@ public class AuthController {
             user.email = email;
             user.name = payload.get("name").toString();
             user.image = payload.get("picture").toString();
-            user.nickname = userService.createNickname(user.name);
+            user.nick = userService.createNick(user.name);
             userRepo.save(user);
             res.setStatus(201);
         } else {

@@ -8,25 +8,25 @@ import org.springframework.stereotype.Service;
 public class UserService {
     UserRepo userRepo;
 
-    public String createNickname(String name) {
-        var nicknameBase = name.replaceAll("\\W", "");
-        nicknameBase = nicknameBase.toLowerCase();
+    public String createNick(String name) {
+        var nickBase = name.replaceAll("\\W", "");
+        nickBase = nickBase.toLowerCase();
 
-        if (nicknameBase.isEmpty()) nicknameBase = "user";
+        if (nickBase.isEmpty()) nickBase = "user";
 
-        var count = userRepo.countByNickname(nicknameBase);
-        String nickname = nicknameBase;
+        var count = userRepo.countByNick(nickBase);
+        String nick = nickBase;
         if (count > 0) {
-            nickname = nicknameBase.concat(String.valueOf(count));
+            nick = nickBase.concat(String.valueOf(count));
         }
 
         var tries = 10;
         for (var i = 0; i < tries; i++) {
-            var alreadyUsingNickname = userRepo.findByNickname(nickname);
-            if (alreadyUsingNickname == null) return nickname;
+            var alreadyUsingNick = userRepo.findByNick(nick);
+            if (alreadyUsingNick == null) return nick;
             count += 1;
-            nickname = nicknameBase.concat(String.valueOf(count));
+            nick = nickBase.concat(String.valueOf(count));
         }
-        throw new UsernameNicknameException();
+        throw new UsernameNickException();
     }
 }

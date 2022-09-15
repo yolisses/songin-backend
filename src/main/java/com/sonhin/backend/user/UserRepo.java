@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface UserRepo extends Neo4jRepository<User, Long> {
     User findByEmail(String email);
 
-    User findByNickname(String nickname);
+    User findByNick(String nick);
 
     User findFirstByMockTrue();
 
@@ -21,6 +21,6 @@ public interface UserRepo extends Neo4jRepository<User, Long> {
     @Query("match (u:User)-[r:FOLLOWS]->(o:User) where id(u) = $sourceId and id(o) = $targetId return count(r)>0")
     boolean doFollows(long sourceId, long targetId);
 
-    @Query("match (u:User) where u.nickname=~ '$1(\\d)*'  return count(u)")
-    int countByNickname(String nickname);
+    @Query("match (u:User) where u.nick=~ '$1(\\d)*'  return count(u)")
+    int countByNick(String nick);
 }

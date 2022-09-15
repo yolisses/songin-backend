@@ -30,7 +30,7 @@ public class User {
 
     @Required
     @Index(unique = true)
-    public String nickname;
+    public String nick;
 
     @Email
     @Required
