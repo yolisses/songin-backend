@@ -27,6 +27,6 @@ public class UserService {
             count += 1;
             nick = nickBase.concat(String.valueOf(count));
         }
-        throw new UsernameNickException();
+        throw new GenerateNickException();
     }
 }
