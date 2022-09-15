@@ -31,7 +31,7 @@ public class AuthController {
         var session = sessionRepo.findSessionById(sessionId);
         session.setLoggedOut(true);
         sessionRepo.save(session);
-        Auth.removeSessionCookie(res);
+        auth.removeSessionCookie(res);
     }
 
     @PostMapping("/sign-in")
@@ -60,7 +60,7 @@ public class AuthController {
 
         var session = new Session(user, req.getRemoteAddr());
         sessionRepo.save(session);
-        Auth.addSessionCookie(res, session.getId());
+        auth.addSessionCookie(res, session.getId());
         return user;
     }
 }

@@ -1,7 +1,7 @@
 package com.sonhin.backend.auth;
 
 import com.sonhin.backend.user.User;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,10 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Configuration
-@AllArgsConstructor
 public class Auth {
+    String domain;
     SessionRepo sessionRepo;
     public static String cookieName = "session_id";
+
+    public Auth(@Value("${domain}") String domain, SessionRepo sessionRepo) {
+        this.sessionRepo = sessionRepo;
+        this.domain = domain;
+    }
 
     public String getSessionId(HttpServletRequest req) {
         var cookies = req.getCookies();
@@ -31,22 +36,22 @@ public class Auth {
         return null;
     }
 
-    public static void addSessionCookie(HttpServletResponse res, String sessionId) {
+    public void addSessionCookie(HttpServletResponse res, String sessionId) {
         var secondsPerDay = 24 * 60 * 60;
         var maxAge = Session.weeksDuration * secondsPerDay;
         final ResponseCookie responseCookie = ResponseCookie
                 .from(cookieName, sessionId)
-                .httpOnly(true)
                 .path("/")
-                .maxAge(maxAge)
-                .domain("sonhin.com")
-                .sameSite("None")
                 .secure(true)
+                .maxAge(maxAge)
+                .domain(domain)
+                .httpOnly(true)
+                .sameSite("None")
                 .build();
         res.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
     }
 
-    public static void removeSessionCookie(HttpServletResponse res) {
+    public void removeSessionCookie(HttpServletResponse res) {
         var sessionCookie = new Cookie(cookieName, null);
         sessionCookie.setHttpOnly(true);
         sessionCookie.setMaxAge(0);
