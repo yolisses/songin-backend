@@ -1,8 +1,8 @@
-# Musiks
+# Sonhin
 
 ## About
 
-Musiks is a music streaming service focused in create a structured and usable dataset of human musical preferences, in
+Sonhin is a music streaming service focused in create a structured and usable dataset of human musical preferences, in
 order to replace humans by robots in music generation (the Mai initiative). The final goal is to create drastically
 better musics using fewer resources.
 
