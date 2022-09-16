@@ -17,14 +17,18 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
+    boolean mock;
+
     @Id
     @GeneratedValue
     Long id;
+
     @NotBlank
     String text;
+
     @Relationship
     User owner;
+
     @Relationship
     Music refers;
-    boolean mock;
 }

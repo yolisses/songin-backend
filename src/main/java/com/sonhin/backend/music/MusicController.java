@@ -95,13 +95,9 @@ public class MusicController {
         return musicRepo.fulltextSearch(q);
     }
 
-    @GetMapping("/{id}/comments")
-    List<Comment> comments(@PathVariable long id) {
-        var music = musicRepo.findById(id);
-        if (music.isEmpty()) throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Music not found"
-        );
-        return commentRepo.findCommentsByRefers(music.get());
+    @GetMapping("/{musicId}/comments")
+    List<Comment> comments(@PathVariable long musicId) {
+        return commentRepo.findByMusicId(musicId);
     }
 
     @PostMapping("/{id}/comments")
