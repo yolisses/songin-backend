@@ -29,12 +29,6 @@ public class MusicController {
         return user.listened;
     }
 
-    @GetMapping("/favorites")
-    List<Music> favorites(HttpServletRequest req) {
-        var user = auth.getUser(req);
-        return musicRepo.favorites(user.id);
-    }
-
     @GetMapping("/feed")
     List<Music> feed(HttpServletRequest req) {
         var user = auth.getUser(req);

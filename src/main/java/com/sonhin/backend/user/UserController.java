@@ -1,14 +1,15 @@
 package com.sonhin.backend.user;
 
 import com.sonhin.backend.auth.Auth;
+import com.sonhin.backend.music.Music;
 import com.sonhin.backend.music.MusicRepo;
-import com.sonhin.backend.profile.ProfileController;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,6 +33,10 @@ public class UserController {
         }
     }
 
+    @GetMapping("{userId}/favorites")
+    List<Music> favorites(@PathVariable long userId) {
+        return musicRepo.favorites(userId);
+    }
 
     @PostMapping("/{id}/follow")
     void follow(HttpServletRequest req, @PathVariable long id) {
