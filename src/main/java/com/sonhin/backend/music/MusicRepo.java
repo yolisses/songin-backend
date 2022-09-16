@@ -11,32 +11,32 @@ public interface MusicRepo extends Neo4jRepository<Music, Long> {
     List<Music> findAllByMockTrue();
 
     @Query("create fulltext index musicSearch if not exists for (m:Music) on each [m.name]")
-    public void addNameIndex();
+    void addNameIndex();
 
     @Query("call db.index.fulltext.queryNodes('musicSearch', $text) yield node, score return node, score")
-    public List<Music> fulltextSearch(String text);
+    List<Music> fulltextSearch(String text);
 
     @Query("match (u:User)-[:LIKES]->(m:Music) where id(u)=$userId return m")
-    public List<Music> favorites(long userId);
+    List<Music> favorites(long userId);
 
     @Query("match (m:Music)<-[l:LIKES]-(u) return m, count(l) order by count(l) desc")
-    public List<Music> mostLiked();
+    List<Music> mostLiked();
 
     @Query("match(u:User)-[r]-()-[]-()-[]-(m:Music) where id(u)=$userId return m, count(r) order by count(r) desc")
-    public List<Music> sortedByAllRelations(long userId);
+    List<Music> sortedByAllRelations(long userId);
 
     @Query("match ()-[r]-(m:Music)-[]-(g:Genre{name:$genreName}) return m, count(r) order by count(r) desc")
-    public List<Music> fromGenre(String genreName);
+    List<Music> fromGenre(String genreName);
 
     @Query("match (u1:User)-[:FOLLOWS]->(u2:User)-[l:LIKES]->(m:Music) where id(u1)=$userId return m, count(l) order by count(l) desc")
-    public List<Music> followedUsersLikeThese(long userId);
+    List<Music> followedUsersLikeThese(long userId);
 
     @Query("match(u1:User)-[:LIKES]->(m1:Music)<-[:LIKES]-(u2:User)-[l:LIKES]->(m2:Music) where id(u1)=$userId return m2, count(l) order by count(l) desc")
-    public List<Music> usersThatLikedAsYouLikedThese(long userId);
+    List<Music> usersThatLikedAsYouLikedThese(long userId);
 
     @Query("match (m1:Music)<-[:LIKES]-(u:User)-[:LIKES]->(m2:Music) where id(m1) = $musicId return m2")
-    public List<Music> usersThatLikedAlsoLikedThese(long musicId);
+    List<Music> usersThatLikedAlsoLikedThese(long musicId);
 
     @Query("match (m:Music)-[:OWNER]->(a:Artist)<-[:FOLLOWS]-(u:User) where id(u) = $userId return m")
-    public List<Music> fromArtistsYouFollow(long userId);
+    List<Music> fromArtistsYouFollow(long userId);
 }
