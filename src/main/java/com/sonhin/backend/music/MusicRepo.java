@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface MusicRepo extends Neo4jRepository<Music, Long> {
+    List<Music> findAllByMockTrue();
 
     @Query("create fulltext index musicSearch if not exists for (m:Music) on each [m.name]")
     public void addNameIndex();

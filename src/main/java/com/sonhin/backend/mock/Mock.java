@@ -25,12 +25,12 @@ public class Mock {
     final int artistsCount = 5;
     final int musicsCount = 50;
     final int followsCount = 4;
+    final int genresCount = 100;
     final int userLikesCount = 4;
     final int userSharesCount = 1;
+    final int musicGenresCount = 3;
     final int userCommentsCount = 2;
     final int userListenedCount = 10;
-    final int musicGenresCount = 3;
-    final int genresCount = 100;
 
     MockRepo mockRepo;
     UserRepo userRepo;
@@ -39,8 +39,8 @@ public class Mock {
     ArtistRepo artistRepo;
     UserService userService;
     CommentRepo commentRepo;
+    final Faker faker = new Faker();
     final Random random = new Random();
-    final Faker faker = new Faker(new Locale("pt-BR"));
 
     int randomDuration() {
         var duration = random.nextGaussian() * 60 + 3 * 60;
@@ -58,7 +58,6 @@ public class Mock {
         if (value < 2 / options) return faker.hobbit().quote();
         return faker.yoda().quote();
     }
-
 
     void addMusics() {
         var musics = new ArrayList<Music>();
@@ -111,7 +110,7 @@ public class Mock {
             genres.add(genre);
         }
         genres = genreRepo.saveAll(genres);
-        var musics = musicRepo.findAll();
+        var musics = musicRepo.findAllByMockTrue();
         for (var music : musics) {
             for (int i = 0; i < musicGenresCount; i++) {
                 var genre = randomChoice(genres);
@@ -135,8 +134,8 @@ public class Mock {
     }
 
     void addListened() {
-        var users = userRepo.findAll();
-        var musics = musicRepo.findAll();
+        var users = userRepo.findAllByMockTrue();
+        var musics = musicRepo.findAllByMockTrue();
         for (User user : users) {
             for (int i = 0; i < userListenedCount; i++) {
                 var music = randomChoice(musics);
@@ -172,7 +171,7 @@ public class Mock {
     }
 
     void addFollowers() {
-        var users = userRepo.findAll();
+        var users = userRepo.findAllByMockTrue();
         for (var user : users) {
             for (int i = 0; i < followsCount; i++) {
                 var followed = randomChoice(users);

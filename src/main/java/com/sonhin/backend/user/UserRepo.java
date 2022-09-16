@@ -4,6 +4,8 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserRepo extends Neo4jRepository<User, Long> {
     User findByEmail(String email);
@@ -11,6 +13,8 @@ public interface UserRepo extends Neo4jRepository<User, Long> {
     User findByNick(String nick);
 
     User findFirstByMockTrue();
+
+    List<User> findAllByMockTrue();
 
     @Query("match (o:User)-[r:FOLLOWS]->(u:User) where id(u) = $id return count(o)")
     int followersCount(long id);
