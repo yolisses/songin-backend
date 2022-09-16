@@ -15,6 +15,9 @@ public interface MusicRepo extends Neo4jRepository<Music, Long> {
     @Query("call db.index.fulltext.queryNodes('musicSearch', $text) yield node, score return node, score")
     public List<Music> fulltextSearch(String text);
 
+    @Query("match (u:User)-[:LIKES]->(m:Music) where id(u)=$userId return m")
+    public List<Music> favorites(long userId);
+
     @Query("match (m:Music)<-[l:LIKES]-(u) return m, count(l) order by count(l) desc")
     public List<Music> mostLiked();
 
