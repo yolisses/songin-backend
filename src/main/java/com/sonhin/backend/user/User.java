@@ -35,6 +35,7 @@ public class User {
     @Email
     @Required
     @JsonIgnore
+    @Index(unique = true)
     public String email;
 
     @JsonIgnore
@@ -48,8 +49,6 @@ public class User {
     @JsonIgnore
     @Relationship
     public Set<Music> shares;
-
-    public boolean artist;
 
     @JsonIgnore
     @Relationship
