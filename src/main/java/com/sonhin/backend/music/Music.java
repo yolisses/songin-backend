@@ -36,15 +36,7 @@ public class Music {
 
     @Relationship
     List<Genre> genres;
-
-    @NotNull
-    @NotBlank
-    String image;
-
-    @NotNull
-    @NotBlank
-    String audio;
-
+    
     @NotNull
     @Positive
     int duration; // seconds
