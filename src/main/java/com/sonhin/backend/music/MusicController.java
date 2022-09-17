@@ -89,9 +89,9 @@ public class MusicController {
         return musicRepo.fulltextSearch(q);
     }
 
-    @GetMapping("/{musicId}/comments")
-    List<Comment> comments(@PathVariable long musicId) {
-        return commentRepo.findByMusicId(musicId);
+    @GetMapping("/{id}/comments")
+    List<Comment> comments(@PathVariable long id) {
+        return commentRepo.findByMusicId(id);
     }
 
     @PostMapping("/{id}/comments")
