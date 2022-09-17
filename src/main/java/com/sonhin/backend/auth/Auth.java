@@ -38,7 +38,7 @@ public class Auth {
 
     public void addSessionCookie(HttpServletResponse res, String sessionId) {
         var secondsPerDay = 24 * 60 * 60;
-        var maxAge = Session.weeksDuration * secondsPerDay;
+        var maxAge = Session.daysDuration * secondsPerDay;
         final ResponseCookie responseCookie = ResponseCookie
                 .from(cookieName, sessionId)
                 .path("/")

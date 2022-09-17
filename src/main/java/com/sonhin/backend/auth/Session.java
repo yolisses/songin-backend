@@ -9,7 +9,8 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 import org.springframework.data.neo4j.core.support.UUIDStringGenerator;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 
 @Node
@@ -24,17 +25,19 @@ public class Session {
     private User user;
     private String ip;
     private boolean loggedOut;
-    static int weeksDuration = 1;
-    private ZonedDateTime createdAt;
+    private Instant createdAt;
+    static int daysDuration = 7;
 
     public Session(User user, String ip) {
         this.ip = ip;
         this.user = user;
-        this.createdAt = ZonedDateTime.now();
+        this.createdAt = Instant.now();
     }
 
     public boolean isExpired() {
-        var now = ZonedDateTime.now();
-        return createdAt.plusWeeks(weeksDuration).isBefore(now);
+        var now = Instant.now();
+        return createdAt
+                .plus(daysDuration, ChronoUnit.DAYS)
+                .isBefore(now);
     }
 }
