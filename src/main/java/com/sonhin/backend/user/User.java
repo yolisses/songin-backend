@@ -20,13 +20,15 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    public boolean mock;
+
     @Id
     @GeneratedValue
     public long id;
+
     @Required
     public String name;
     public String image;
-    public boolean mock;
 
     @Required
     @Index(unique = true)
