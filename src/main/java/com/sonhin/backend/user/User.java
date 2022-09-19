@@ -35,7 +35,6 @@ public class User {
     public String nick;
 
     @Email
-    @Required
     @JsonIgnore
     @Index(unique = true)
     public String email;

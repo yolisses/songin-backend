@@ -1,15 +1,16 @@
 package com.sonhin.backend.mock;
 
 import com.github.javafaker.Faker;
-import com.sonhin.backend.artist.Artist;
 import com.sonhin.backend.artist.ArtistRepo;
 import com.sonhin.backend.comment.Comment;
 import com.sonhin.backend.comment.CommentRepo;
 import com.sonhin.backend.genre.Genre;
 import com.sonhin.backend.genre.GenreRepo;
-import com.sonhin.backend.music.Music;
+import com.sonhin.backend.music.MusicMock;
 import com.sonhin.backend.music.MusicRepo;
+import com.sonhin.backend.random.RandomUtils;
 import com.sonhin.backend.user.User;
+import com.sonhin.backend.user.UserMock;
 import com.sonhin.backend.user.UserRepo;
 import com.sonhin.backend.user.UserService;
 import lombok.AllArgsConstructor;
@@ -21,35 +22,20 @@ import java.util.*;
 @Configuration
 @AllArgsConstructor
 public class Mock {
-    final int usersCount = 20;
-    final int artistsCount = 5;
-    final int musicsCount = 50;
-    final int followsCount = 4;
-    final int genresCount = 100;
-    final int userLikesCount = 4;
-    final int userSharesCount = 1;
-    final int musicGenresCount = 3;
-    final int userCommentsCount = 2;
-    final int userListenedCount = 10;
 
+    UserMock userMock;
     MockRepo mockRepo;
     UserRepo userRepo;
+    MusicMock musicMock;
     MusicRepo musicRepo;
     GenreRepo genreRepo;
     ArtistRepo artistRepo;
     UserService userService;
     CommentRepo commentRepo;
+    RandomUtils randomUtils;
     final Faker faker = new Faker();
     final Random random = new Random();
 
-    int randomDuration() {
-        var duration = random.nextGaussian() * 60 + 3 * 60;
-        return (int) Math.max(duration, 100);
-    }
-
-    <Type> Type randomChoice(List<Type> options) {
-        return options.get(random.nextInt(options.size()));
-    }
 
     String getCommentText() {
         var value = random.nextDouble();
@@ -59,20 +45,6 @@ public class Mock {
         return faker.yoda().quote();
     }
 
-    void addMusics() {
-        var musics = new ArrayList<Music>();
-        var artists = artistRepo.findAll();
-        for (int i = 0; i < musicsCount; i++) {
-            var artist = randomChoice(artists);
-            var music = new Music();
-            music.setMock(true);
-            music.setOwner(artist);
-            music.setName(faker.book().title());
-            music.setDuration(randomDuration());
-            musics.add(music);
-        }
-        musicRepo.saveAll(musics);
-    }
 
     void addLikes(User user) {
         for (int i = 0; i < userLikesCount; i++) {
@@ -107,8 +79,8 @@ public class Mock {
         var musics = musicRepo.findAllByMockTrue();
         for (var music : musics) {
             for (int i = 0; i < musicGenresCount; i++) {
-                var genre = randomChoice(genres);
-                music.getGenres().add(genre);
+                var genre = randomUtils.choice(genres);
+                music.genres.add(genre);
             }
         }
         musicRepo.saveAll(musics);
@@ -132,7 +104,7 @@ public class Mock {
         var musics = musicRepo.findAllByMockTrue();
         for (User user : users) {
             for (int i = 0; i < userListenedCount; i++) {
-                var music = randomChoice(musics);
+                var music = randomUtils.choice(musics);
                 user.listened.add(music);
             }
             addLikes(user);
@@ -142,33 +114,12 @@ public class Mock {
         userRepo.saveAll(users);
     }
 
-    void addUsers() {
-        List<User> users = new ArrayList<>();
-        for (int i = 0; i < usersCount; i++) {
-            User user;
-            if (i < artistsCount) {
-                user = new Artist();
-            } else {
-                user = new User();
-            }
-            user.mock = true;
-            user.name = faker.name().fullName();
-            user.email = faker.internet().emailAddress();
-            users.add(user);
-        }
-        users = userRepo.saveAll(users);
-        for (var user : users) {
-            user.image = String.format("https://picsum.photos/id/%d/96/96", user.id);
-            user.nick = userService.createNick(user.name);
-        }
-        userRepo.saveAll(users);
-    }
 
     void addFollowers() {
         var users = userRepo.findAllByMockTrue();
         for (var user : users) {
             for (int i = 0; i < followsCount; i++) {
-                var followed = randomChoice(users);
+                var followed = randomUtils.choice(users);
                 if (user.id != followed.id) {
                     user.follows.add(followed);
                     userRepo.save(user);
@@ -177,12 +128,24 @@ public class Mock {
         }
     }
 
+    final int usersCount = 20;
+    final int artistsCount = 5;
+    final int musicsCount = 50;
+    final int followsCount = 4;
+    final int genresCount = 100;
+    final int userLikesCount = 4;
+    final int userSharesCount = 1;
+    final int musicGenresCount = 3;
+    final int userCommentsCount = 2;
+    final int userListenedCount = 10;
+
     public void run() {
         mockRepo.deleteMock();
-        addUsers();
-        addMusics();
-        addGenres();
-        addListened();
-        addFollowers();
+        userMock.addUsers(usersCount, artistsCount);
+        userMock.addNicks();
+        musicMock.addMusics(musicsCount);
+//        addGenres();
+//        addListened();
+//        addFollowers();
     }
 }

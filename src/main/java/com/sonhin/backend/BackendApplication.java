@@ -41,13 +41,14 @@ public class BackendApplication {
         };
     }
 
+
     @Bean
     CommandLineRunner commandLineRunner() {
-        musicRepo.addNameIndex();
-        boolean runMock = false;
+        boolean runMock = true;
         return args -> {
             if (runMock)
                 mock.run();
+            musicRepo.addNameIndex();
         };
     }
 }

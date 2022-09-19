@@ -4,7 +4,6 @@ package com.sonhin.backend.music;
 import com.sonhin.backend.artist.Artist;
 import com.sonhin.backend.genre.Genre;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
@@ -17,27 +16,26 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Node
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Music {
-    boolean mock;
+    public boolean mock;
 
     @Id
     @GeneratedValue
-    long id;
+    public long id;
 
     @NotNull
     @NotBlank
-    String name;
+    public String name;
 
     @Relationship
-    Artist owner;
+    public Artist owner;
 
     @Relationship
-    List<Genre> genres;
-    
+    public List<Genre> genres;
+
     @NotNull
     @Positive
-    int duration; // seconds
+    public int duration; // seconds
 }
