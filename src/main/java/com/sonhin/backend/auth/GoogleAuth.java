@@ -15,7 +15,8 @@ import java.util.Collections;
 public class GoogleAuth {
     String CLIENT_ID = "456371025061-44c24jcod62qnejc2kp6f8dmj3amlshn.apps.googleusercontent.com";
     GoogleIdTokenVerifier googleVerifier = new GoogleIdTokenVerifier.Builder(
-            new NetHttpTransport(), new GsonFactory())
+            new NetHttpTransport(),
+            new GsonFactory())
             .setAudience(Collections.singleton(CLIENT_ID))
             .build();
 
