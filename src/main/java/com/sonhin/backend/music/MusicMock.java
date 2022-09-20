@@ -25,8 +25,8 @@ public class MusicMock {
     }
 
     public void addMusics(int count) {
-        var musics = new ArrayList<Music>();
         var artists = artistRepo.findAll();
+        var musics = new ArrayList<Music>();
         for (int i = 0; i < count; i++) {
             var artist = randomUtils.choice(artists);
             var music = new Music();
