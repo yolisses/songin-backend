@@ -58,7 +58,7 @@ public class ProfileController {
 
 
     @GetMapping("/id/{id}")
-    Profile profile(HttpServletRequest req, @PathVariable long id) {
+    Profile profile(HttpServletRequest req, @PathVariable Long id) {
         var currentUser = auth.getUser(req);
         var user = userRepo.findById(id);
         validateFound(user);

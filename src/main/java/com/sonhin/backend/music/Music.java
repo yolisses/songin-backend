@@ -23,7 +23,7 @@ public class Music {
 
     @Id
     @GeneratedValue
-    public long id;
+    public Long id;
 
     @NotNull
     @NotBlank

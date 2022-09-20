@@ -19,7 +19,7 @@ public class CommentController {
     CommentRepo commentRepo;
 
     @DeleteMapping("/{id}")
-    void uncomment(HttpServletRequest req, @PathVariable long id) {
+    void uncomment(HttpServletRequest req, @PathVariable Long id) {
         var user = auth.getUser(req);
         var comment = commentRepo.findById(id);
         if (comment.isEmpty()) throw new ResponseStatusException(

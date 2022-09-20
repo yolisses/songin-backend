@@ -17,13 +17,13 @@ public interface UserRepo extends Neo4jRepository<User, Long> {
     List<User> findAllByMockTrue();
 
     @Query("match (o:User)-[r:FOLLOWS]->(u:User) where id(u) = $id return count(o)")
-    int followersCount(long id);
+    int followersCount(Long id);
 
     @Query("match (u:User)-[r:FOLLOWS]->(o:User) where id(u) = $id return count(o)")
-    int followingCount(long id);
+    int followingCount(Long id);
 
     @Query("match (u:User)-[r:FOLLOWS]->(o:User) where id(u) = $sourceId and id(o) = $targetId return count(r)>0")
-    boolean doFollows(long sourceId, long targetId);
+    boolean doFollows(Long sourceId, Long targetId);
 
     @Query("match (u:User) where u.nick=~ '$1(\\d)*'  return count(u)")
     int countByNick(String nick);

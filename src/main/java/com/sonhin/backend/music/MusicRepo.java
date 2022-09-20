@@ -17,26 +17,26 @@ public interface MusicRepo extends Neo4jRepository<Music, Long> {
     List<Music> fulltextSearch(String text);
 
     @Query("match (u:User)-[:LIKES]->(m:Music) where id(u)=$userId return m")
-    List<Music> favorites(long userId);
+    List<Music> favorites(Long userId);
 
     @Query("match (m:Music)<-[l:LIKES]-(u) return m, count(l) order by count(l) desc")
     List<Music> mostLiked();
 
     @Query("match(u:User)-[r]-()-[]-()-[]-(m:Music) where id(u)=$userId return m, count(r) order by count(r) desc")
-    List<Music> sortedByAllRelations(long userId);
+    List<Music> sortedByAllRelations(Long userId);
 
     @Query("match ()-[r]-(m:Music)-[]-(g:Genre{name:$genreName}) return m, count(r) order by count(r) desc")
     List<Music> fromGenre(String genreName);
 
     @Query("match (u1:User)-[:FOLLOWS]->(u2:User)-[l:LIKES]->(m:Music) where id(u1)=$userId return m, count(l) order by count(l) desc")
-    List<Music> followedUsersLikeThese(long userId);
+    List<Music> followedUsersLikeThese(Long userId);
 
     @Query("match(u1:User)-[:LIKES]->(m1:Music)<-[:LIKES]-(u2:User)-[l:LIKES]->(m2:Music) where id(u1)=$userId return m2, count(l) order by count(l) desc")
-    List<Music> usersThatLikedAsYouLikedThese(long userId);
+    List<Music> usersThatLikedAsYouLikedThese(Long userId);
 
     @Query("match (m1:Music)<-[:LIKES]-(u:User)-[:LIKES]->(m2:Music) where id(m1) = $musicId return m2")
-    List<Music> usersThatLikedAlsoLikedThese(long musicId);
+    List<Music> usersThatLikedAlsoLikedThese(Long musicId);
 
     @Query("match (m:Music)-[:OWNER]->(a:Artist)<-[:FOLLOWS]-(u:User) where id(u) = $userId return m")
-    List<Music> fromArtistsYouFollow(long userId);
+    List<Music> fromArtistsYouFollow(Long userId);
 }

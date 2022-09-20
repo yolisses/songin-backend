@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class Genre {
     @Id
     @GeneratedValue
-    public long id;
+    public Long id;
     public boolean mock;
     @NotNull
     @NotBlank

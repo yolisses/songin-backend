@@ -6,12 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.Required;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import javax.validation.constraints.Email;
+import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +26,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    public long id;
+    public Long id;
 
     @Required
     public String name;
@@ -54,4 +56,7 @@ public class User {
     @JsonIgnore
     @Relationship
     public List<Music> listened;
+
+    @CreatedDate
+    public Instant createdAt;
 }

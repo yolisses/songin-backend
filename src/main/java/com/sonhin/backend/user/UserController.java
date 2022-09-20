@@ -34,12 +34,12 @@ public class UserController {
     }
 
     @GetMapping("{userId}/favorites")
-    List<Music> favorites(@PathVariable long userId) {
+    List<Music> favorites(@PathVariable Long userId) {
         return musicRepo.favorites(userId);
     }
 
     @PostMapping("/{id}/follow")
-    void follow(HttpServletRequest req, @PathVariable long id) {
+    void follow(HttpServletRequest req, @PathVariable Long id) {
         var currentUser = auth.getUser(req);
         if (currentUser.id == id) {
             throw new ResponseStatusException(
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}/follow")
-    void unfollow(HttpServletRequest req, @PathVariable long id) {
+    void unfollow(HttpServletRequest req, @PathVariable Long id) {
         var currentUser = auth.getUser(req);
         var user = userRepo.findById(id);
         validateFound(user);
