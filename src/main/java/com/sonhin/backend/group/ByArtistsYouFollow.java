@@ -8,6 +8,6 @@ import com.sonhin.backend.user.User;
 
 public class ByArtistsYouFollow extends Group<Music> {
     public void loadMusics(User user, MusicRepo musicRepo, ArtistRepo artistRepo, GenreRepo genreRepo) {
-        items = musicRepo.fromArtistsYouFollow(user.id);
+        items = musicRepo.fromArtistsYouFollow(user.getId());
     }
 }

@@ -18,13 +18,13 @@ public class ByLikedMusic extends Group<Music> {
             ArtistRepo artistRepo,
             GenreRepo genreRepo) {
         Music music;
-        if (user.likes.size() > 0) {
-            music = user.likes.get(random.nextInt(user.likes.size()));
+        if (user.getLikes().size() > 0) {
+            music = user.getLikes().get(random.nextInt(user.getLikes().size()));
         } else {
             var all = musicRepo.findAll();
             music = all.get(random.nextInt(all.size()));
         }
-        setName(name.concat("\"").concat(music.name).concat("\""));
-        items = musicRepo.usersThatLikedAlsoLikedThese(music.id);
+        setName(name.concat("\"").concat(music.getName()).concat("\""));
+        items = musicRepo.usersThatLikedAlsoLikedThese(music.getId());
     }
 }

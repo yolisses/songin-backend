@@ -14,7 +14,7 @@ public class ByGenre extends Group<Music> {
     public void loadMusics(User user, MusicRepo musicRepo, ArtistRepo artistRepo, GenreRepo genreRepo) {
         var genres = genreRepo.findAll();
         var genre = genres.get(random.nextInt(genres.size()));
-        setName(name.concat(genre.name));
-        items = musicRepo.fromGenre(genre.name);
+        setName(name.concat(genre.getName()));
+        items = musicRepo.fromGenre(genre.getName());
     }
 }

@@ -20,12 +20,12 @@ public class Session {
     boolean mock;
     @Id
     @GeneratedValue(generatorClass = UUIDStringGenerator.class)
-    private String id;
+    String id;
     @Relationship
-    private User user;
-    private String ip;
-    private boolean loggedOut;
-    private Instant createdAt;
+    User user;
+    String ip;
+    boolean loggedOut;
+    Instant createdAt;
     static int daysDuration = 7;
 
     public Session(User user, String ip) {
@@ -34,7 +34,7 @@ public class Session {
         this.createdAt = Instant.now();
     }
 
-    public boolean isExpired() {
+    boolean isExpired() {
         var now = Instant.now();
         return createdAt
                 .plus(daysDuration, ChronoUnit.DAYS)

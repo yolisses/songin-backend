@@ -1,6 +1,7 @@
 package com.sonhin.backend.genre;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.Index;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -11,15 +12,16 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Node
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Genre {
     @Id
     @GeneratedValue
-    public Long id;
-    public boolean mock;
+    Long id;
+    boolean mock;
     @NotNull
     @NotBlank
     @Index(unique = true)
-    public String name;
+    String name;
 }

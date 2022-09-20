@@ -48,10 +48,10 @@ public class AuthController {
 
         if (isNull(user)) {
             user = new User();
-            user.email = email;
-            user.name = payload.get("name").toString();
-            user.image = payload.get("picture").toString();
-            user.nick = userService.createNick(user.name);
+            user.setEmail(email);
+            user.setName(payload.get("name").toString());
+            user.setImage(payload.get("picture").toString());
+            user.setNick(userService.createNick(user.getName()));
             userRepo.save(user);
             res.setStatus(201);
         } else {
