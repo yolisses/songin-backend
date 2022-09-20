@@ -89,19 +89,6 @@ public class Mock {
     }
 
 
-    void addFollowers() {
-        var users = userRepo.findAllByMockTrue();
-        for (var user : users) {
-            for (int i = 0; i < followsCount; i++) {
-                var followed = randomUtils.choice(users);
-                if (user.id != followed.id) {
-                    user.follows.add(followed);
-                    userRepo.save(user);
-                }
-            }
-        }
-    }
-
     final int usersCount = 20;
     final int artistsCount = 5;
     final int musicsCount = 50;
@@ -116,9 +103,9 @@ public class Mock {
         mockRepo.deleteMock();
         userMock.addUsers(usersCount, artistsCount);
         userMock.addNicks();
+        userMock.addFollowers(followsCount);
         musicMock.addMusics(musicsCount);
         musicMock.addGenres(musicGenresCount);
 //        addListened();
-//        addFollowers();
     }
 }
