@@ -8,7 +8,7 @@ import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
-import java.util.List;
+import java.util.Set;
 
 @Node
 @NoArgsConstructor
@@ -19,5 +19,5 @@ public class Mark {
 
     @JsonIgnore
     @Relationship
-    List<User> identifies;
+    Set<User> identifies;
 }
