@@ -1,4 +1,4 @@
-package com.sonhin.backend.mark;
+package com.sonhin.backend.artist.mark;
 
 import com.sonhin.backend.user.User;
 import lombok.AllArgsConstructor;

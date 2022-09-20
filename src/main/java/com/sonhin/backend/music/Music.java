@@ -13,7 +13,7 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.util.List;
+import java.util.Set;
 
 @Node
 @NoArgsConstructor
@@ -33,7 +33,7 @@ public class Music {
     public Artist owner;
 
     @Relationship
-    public List<Genre> genres;
+    public Set<Genre> genres;
 
     @NotNull
     @Positive

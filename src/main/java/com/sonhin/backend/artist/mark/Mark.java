@@ -1,4 +1,4 @@
-package com.sonhin.backend.mark;
+package com.sonhin.backend.artist.mark;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sonhin.backend.user.User;

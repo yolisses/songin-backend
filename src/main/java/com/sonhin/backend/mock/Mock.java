@@ -4,7 +4,6 @@ import com.github.javafaker.Faker;
 import com.sonhin.backend.artist.ArtistRepo;
 import com.sonhin.backend.comment.Comment;
 import com.sonhin.backend.comment.CommentRepo;
-import com.sonhin.backend.genre.Genre;
 import com.sonhin.backend.genre.GenreRepo;
 import com.sonhin.backend.music.MusicMock;
 import com.sonhin.backend.music.MusicRepo;
@@ -16,13 +15,12 @@ import com.sonhin.backend.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.*;
+import java.util.Random;
 
 
 @Configuration
 @AllArgsConstructor
 public class Mock {
-
     UserMock userMock;
     MockRepo mockRepo;
     UserRepo userRepo;
@@ -63,19 +61,7 @@ public class Mock {
     }
 
     void addGenres() {
-        Set<String> genreNames = new HashSet<>();
-        for (int i = 0; i < genresCount; i++) {
-            var name = faker.music().genre();
-            genreNames.add(name);
-        }
-        List<Genre> genres = new ArrayList<>();
-        for (var name : genreNames) {
-            var genre = new Genre();
-            genre.setMock(true);
-            genre.setName(name);
-            genres.add(genre);
-        }
-        genres = genreRepo.saveAll(genres);
+        var genres = genreRepo.findAll();
         var musics = musicRepo.findAllByMockTrue();
         for (var music : musics) {
             for (int i = 0; i < musicGenresCount; i++) {
