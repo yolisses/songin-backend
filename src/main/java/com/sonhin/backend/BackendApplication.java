@@ -8,8 +8,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @AllArgsConstructor
 @SpringBootApplication
@@ -25,23 +23,6 @@ public class BackendApplication {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins(
-                                "https://sonhin.com",
-                                "http://localhost:3000",
-                                "https://api.sonhin.com"
-                        )
-                        .allowCredentials(true);
-            }
-        };
-    }
-
 
     @Bean
     CommandLineRunner commandLineRunner() {
