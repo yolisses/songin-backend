@@ -1,6 +1,7 @@
 package com.sonhin.backend.mock;
 
 import com.sonhin.backend.comment.CommentMock;
+import com.sonhin.backend.genre.GenreMock;
 import com.sonhin.backend.music.MusicMock;
 import com.sonhin.backend.random.RandomUtils;
 import com.sonhin.backend.user.UserMock;
@@ -15,10 +16,12 @@ public class Mock {
     MockRepo mockRepo;
 
     UserMock userMock;
+    GenreMock genreMock;
     MusicMock musicMock;
     UserService userService;
     RandomUtils randomUtils;
     CommentMock commentMock;
+
 
     final int usersCount = 20;
     final int artistsCount = 5;
@@ -32,6 +35,7 @@ public class Mock {
 
     public void run() {
         mockRepo.deleteMock();
+        genreMock.addGenres();
         userMock.addUsers(usersCount, artistsCount);
         userMock.addNicks();
         userMock.addFollowers(followsCount);

@@ -1,6 +1,5 @@
 package com.sonhin.backend;
 
-import com.sonhin.backend.genre.GenreSeed;
 import com.sonhin.backend.mock.Mock;
 import com.sonhin.backend.music.MusicRepo;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class BackendApplication {
     Mock mock;
     MusicRepo musicRepo;
-    GenreSeed genreSeed;
 
     public static void main(String[] args) {
         SpringApplication.run(BackendApplication.class, args);
@@ -48,7 +46,6 @@ public class BackendApplication {
     CommandLineRunner commandLineRunner() {
         boolean runMock = true;
         return args -> {
-            genreSeed.addGenres();
             if (runMock)
                 mock.run();
             musicRepo.addNameIndex();

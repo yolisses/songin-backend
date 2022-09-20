@@ -5,11 +5,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @AllArgsConstructor
-public class GenreSeed {
+public class GenreMock {
     final String[] genreNames = new String[]{
             "A Cappella",
             "Alternative Hip Hop",
@@ -90,12 +89,13 @@ public class GenreSeed {
     GenreRepo genreRepo;
 
     public void addGenres() {
-        List genres = new ArrayList<Genre>();
+        var genres = new ArrayList<Genre>();
         for (var name : genreNames) {
             var genre = new Genre();
-            genre.name = name;
             genres.add(genre);
+            genre.name = name;
+            genre.mock = true;
         }
-        genres = genreRepo.saveAll(genres);
+        genreRepo.saveAll(genres);
     }
 }

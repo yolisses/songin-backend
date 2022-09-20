@@ -17,7 +17,7 @@ public class Genre {
     @Id
     @GeneratedValue
     public long id;
-
+    public boolean mock;
     @NotNull
     @NotBlank
     @Index(unique = true)
