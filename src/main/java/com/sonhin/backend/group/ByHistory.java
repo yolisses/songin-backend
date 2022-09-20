@@ -10,6 +10,6 @@ public class ByHistory extends Group<Music> {
     final String type = "by_history";
 
     public void loadMusics(User user, MusicRepo musicRepo, ArtistRepo artistRepo, GenreRepo genreRepo) {
-        items = user.getListened();
+        items = user.listened;
     }
 }

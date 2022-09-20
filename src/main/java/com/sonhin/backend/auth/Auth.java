@@ -71,16 +71,16 @@ public class Auth {
         if (session == null)
             throwForbidden("Session not found");
 
-        if (session.isLoggedOut())
+        if (session.loggedOut)
             throwForbidden("Session already logged out");
 
         var ip = req.getRemoteAddr();
-        if (!session.getIp().equals(ip))
+        if (!session.ip.equals(ip))
             throwForbidden("Invalid origin address to session: " + ip);
 
         if (session.isExpired())
             throwForbidden("Session expired");
 
-        return session.getUser();
+        return session.user;
     }
 }

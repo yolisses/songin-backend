@@ -4,7 +4,6 @@ package com.sonhin.backend.music;
 import com.sonhin.backend.artist.Artist;
 import com.sonhin.backend.genre.Genre;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
@@ -17,7 +16,6 @@ import javax.validation.constraints.Positive;
 import java.util.Set;
 
 @Node
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Music {
@@ -25,10 +23,12 @@ public class Music {
 
     @Id
     @GeneratedValue
+    public
     Long id;
 
     @NotNull
     @NotBlank
+    public
     String name;
 
     @Relationship

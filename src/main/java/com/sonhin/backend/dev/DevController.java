@@ -25,9 +25,9 @@ public class DevController {
     public User mockLogin(HttpServletRequest req, HttpServletResponse res) {
         var user = userRepo.findFirstByMockTrue();
         var session = new Session(user, req.getRemoteAddr());
-        session.setMock(true);
+        session.mock = true;
         sessionRepo.save(session);
-        auth.addSessionCookie(res, session.getId());
+        auth.addSessionCookie(res, session.id);
         return user;
     }
 }

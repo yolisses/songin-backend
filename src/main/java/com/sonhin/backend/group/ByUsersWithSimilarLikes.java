@@ -12,6 +12,6 @@ public class ByUsersWithSimilarLikes extends Group<Music> {
     final String type = "by_users_with_similar_likes";
 
     public void loadMusics(User user, MusicRepo musicRepo, ArtistRepo artistRepo, GenreRepo genreRepo) {
-        items = musicRepo.usersThatLikedAsYouLikedThese(user.getId());
+        items = musicRepo.usersThatLikedAsYouLikedThese(user.id);
     }
 }

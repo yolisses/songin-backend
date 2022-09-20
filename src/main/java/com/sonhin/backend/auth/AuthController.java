@@ -29,7 +29,7 @@ public class AuthController {
     void logout(HttpServletRequest req, HttpServletResponse res) {
         var sessionId = auth.getSessionId(req);
         var session = sessionRepo.findSessionById(sessionId);
-        session.setLoggedOut(true);
+        session.loggedOut = true;
         sessionRepo.save(session);
         auth.removeSessionCookie(res);
     }
@@ -48,10 +48,10 @@ public class AuthController {
 
         if (isNull(user)) {
             user = new User();
-            user.setEmail(email);
-            user.setName(payload.get("name").toString());
-            user.setImage(payload.get("picture").toString());
-            user.setNick(userService.createNick(user.getName()));
+            user.email = email;
+            user.name = payload.get("name").toString();
+            user.image = payload.get("picture").toString();
+            user.nick = userService.createNick(user.name);
             userRepo.save(user);
             res.setStatus(201);
         } else {
@@ -60,7 +60,7 @@ public class AuthController {
 
         var session = new Session(user, req.getRemoteAddr());
         sessionRepo.save(session);
-        auth.addSessionCookie(res, session.getId());
+        auth.addSessionCookie(res, session.id);
         return user;
     }
 }

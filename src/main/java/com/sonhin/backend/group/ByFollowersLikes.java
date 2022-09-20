@@ -10,6 +10,6 @@ public class ByFollowersLikes extends Group<Music> {
     final String type = "by_followers_likes";
 
     public void loadMusics(User user, MusicRepo musicRepo, ArtistRepo artistRepo, GenreRepo genreRepo) {
-        items = musicRepo.followedUsersLikeThese(user.getId());
+        items = musicRepo.followedUsersLikeThese(user.id);
     }
 }

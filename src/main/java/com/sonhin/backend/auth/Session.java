@@ -1,7 +1,6 @@
 package com.sonhin.backend.auth;
 
 import com.sonhin.backend.user.User;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
@@ -14,16 +13,16 @@ import java.time.temporal.ChronoUnit;
 
 
 @Node
-@Data
 @NoArgsConstructor
 public class Session {
-    boolean mock;
     @Id
     @GeneratedValue(generatorClass = UUIDStringGenerator.class)
+    public
     String id;
     @Relationship
     User user;
     String ip;
+    public boolean mock;
     boolean loggedOut;
     Instant createdAt;
     static int daysDuration = 7;

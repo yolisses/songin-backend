@@ -26,13 +26,13 @@ public class MusicController {
     @GetMapping("/history")
     List<Music> history(HttpServletRequest req) {
         var user = auth.getUser(req);
-        return user.getListened();
+        return user.listened;
     }
 
     @GetMapping("/feed")
     List<Music> feed(HttpServletRequest req) {
         var user = auth.getUser(req);
-        var musics = musicRepo.sortedByAllRelations(user.getId());
+        var musics = musicRepo.sortedByAllRelations(user.id);
         if (musics.size() == 0) {
             musics = musicRepo.mostLiked();
         }
@@ -46,7 +46,7 @@ public class MusicController {
         if (music.isEmpty()) throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Music not found"
         );
-        user.getListened().add(music.get());
+        user.listened.add(music.get());
         userRepo.save(user);
         return "https://fake-music-path";
     }
@@ -58,7 +58,7 @@ public class MusicController {
         if (music.isEmpty()) throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Music not found"
         );
-        user.getLikes().add(music.get());
+        user.likes.add(music.get());
         userRepo.save(user);
     }
 
@@ -69,7 +69,7 @@ public class MusicController {
         if (music.isEmpty()) throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Music not found"
         );
-        user.getLikes().add(music.get());
+        user.likes.add(music.get());
         userRepo.save(user);
     }
 
@@ -80,7 +80,7 @@ public class MusicController {
         if (music.isEmpty()) throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Music not found"
         );
-        user.getLikes().remove(music.get());
+        user.likes.remove(music.get());
         userRepo.save(user);
     }
 
@@ -104,8 +104,8 @@ public class MusicController {
                 HttpStatus.NOT_FOUND, "Music not found"
         );
         var comment = new Comment();
-        comment.setText(text);
-        comment.setOwner(user);
+        comment.text = text;
+        comment.owner = user;
         return commentRepo.save(comment);
     }
 

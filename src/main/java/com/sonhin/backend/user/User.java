@@ -3,9 +3,7 @@ package com.sonhin.backend.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sonhin.backend.music.Music;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.Required;
 import org.springframework.data.annotation.CreatedDate;
@@ -21,8 +19,6 @@ import java.util.Set;
 
 
 @Node
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -30,23 +26,28 @@ public class User {
 
     @Id
     @GeneratedValue
+    public
     Long id;
 
     @Required
+    public
     String name;
-    String image;
+    public String image;
 
     @Required
     @Index(unique = true)
+    public
     String nick;
 
     @Email
     @JsonIgnore
     @Index(unique = true)
+    public
     String email;
 
     @JsonIgnore
     @Relationship
+    public
     List<Music> likes;
 
     @JsonIgnore
@@ -59,6 +60,7 @@ public class User {
 
     @JsonIgnore
     @Relationship
+    public
     List<Music> listened;
 
     @CreatedDate

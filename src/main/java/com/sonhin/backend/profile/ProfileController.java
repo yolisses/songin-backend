@@ -44,8 +44,8 @@ public class ProfileController {
         var currentUser = auth.getUser(req);
         var user = userRepo.findByNick(nick);
         validateFound(user);
-        var id = user.getId();
-        var following = userRepo.doFollows(currentUser.getId(), id);
+        var id = user.id;
+        var following = userRepo.doFollows(currentUser.id, id);
         var followersCount = userRepo.followersCount(id);
         var followingCount = userRepo.followingCount(id);
         return new Profile(
@@ -62,7 +62,7 @@ public class ProfileController {
         var currentUser = auth.getUser(req);
         var user = userRepo.findById(id);
         validateFound(user);
-        var following = userRepo.doFollows(currentUser.getId(), user.get().getId());
+        var following = userRepo.doFollows(currentUser.id, user.get().id);
         var followersCount = userRepo.followersCount(id);
         var followingCount = userRepo.followingCount(id);
         return new Profile(
