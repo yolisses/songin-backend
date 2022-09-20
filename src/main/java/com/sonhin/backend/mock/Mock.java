@@ -60,18 +60,6 @@ public class Mock {
         userRepo.save(user);
     }
 
-    void addGenres() {
-        var genres = genreRepo.findAll();
-        var musics = musicRepo.findAllByMockTrue();
-        for (var music : musics) {
-            for (int i = 0; i < musicGenresCount; i++) {
-                var genre = randomUtils.choice(genres);
-                music.genres.add(genre);
-            }
-        }
-        musicRepo.saveAll(musics);
-    }
-
 
     void addComments(User user) {
         for (int i = 0; i < userCommentsCount; i++) {
@@ -118,7 +106,6 @@ public class Mock {
     final int artistsCount = 5;
     final int musicsCount = 50;
     final int followsCount = 4;
-    final int genresCount = 100;
     final int userLikesCount = 4;
     final int userSharesCount = 1;
     final int musicGenresCount = 3;
@@ -130,7 +117,7 @@ public class Mock {
         userMock.addUsers(usersCount, artistsCount);
         userMock.addNicks();
         musicMock.addMusics(musicsCount);
-//        addGenres();
+        musicMock.addGenres(musicGenresCount);
 //        addListened();
 //        addFollowers();
     }

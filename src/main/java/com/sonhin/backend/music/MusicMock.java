@@ -2,6 +2,7 @@ package com.sonhin.backend.music;
 
 import com.github.javafaker.Faker;
 import com.sonhin.backend.artist.ArtistRepo;
+import com.sonhin.backend.genre.GenreRepo;
 import com.sonhin.backend.random.RandomUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import java.util.Random;
 public class MusicMock {
     Faker faker;
     Random random;
+    GenreRepo genreRepo;
     MusicRepo musicRepo;
     ArtistRepo artistRepo;
     RandomUtils randomUtils;
@@ -35,6 +37,18 @@ public class MusicMock {
             music.name = faker.book().title();
             music.duration = randomDuration();
             musics.add(music);
+        }
+        musicRepo.saveAll(musics);
+    }
+
+    public void addGenres(int count) {
+        var genres = genreRepo.findAll();
+        var musics = musicRepo.findAllByMockTrue();
+        for (var music : musics) {
+            for (int i = 0; i < count; i++) {
+                var genre = randomUtils.choice(genres);
+                music.genres.add(genre);
+            }
         }
         musicRepo.saveAll(musics);
     }
