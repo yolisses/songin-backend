@@ -33,8 +33,9 @@ public class BackendApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins(
+                                "https://sonhin.com",
                                 "http://localhost:3000",
-                                "https://sonhin.com"
+                                "https://api.sonhin.com"
                         )
                         .allowCredentials(true);
             }
