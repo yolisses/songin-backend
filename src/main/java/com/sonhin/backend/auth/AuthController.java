@@ -58,9 +58,7 @@ public class AuthController {
             res.setStatus(200);
         }
 
-        var session = new Session(user, req.getRemoteAddr());
-        sessionRepo.save(session);
-        auth.addSessionCookie(res, session.id);
+        auth.addSession(user, req, res);
         return user;
     }
 }

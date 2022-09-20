@@ -12,6 +12,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 @Configuration
 public class Auth {
     String domain;
@@ -82,5 +83,14 @@ public class Auth {
             throwForbidden("Session expired");
 
         return session.user;
+    }
+
+    public void addSession(
+            User user,
+            HttpServletRequest req,
+            HttpServletResponse res) {
+        var session = new Session(user, req.getRemoteAddr());
+        sessionRepo.save(session);
+        addSessionCookie(res, session.id);
     }
 }
