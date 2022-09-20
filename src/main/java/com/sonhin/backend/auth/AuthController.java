@@ -1,6 +1,5 @@
 package com.sonhin.backend.auth;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.sonhin.backend.user.User;
 import com.sonhin.backend.user.UserRepo;
 import com.sonhin.backend.user.UserService;
@@ -14,14 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
-import static java.util.Objects.isNull;
-
 @RestController
 @AllArgsConstructor
 public class AuthController {
     Auth auth;
     UserRepo userRepo;
-    TokenVerifier verifier;
+    GoogleAuth googleAuth;
     SessionRepo sessionRepo;
     UserService userService;
 
@@ -40,18 +37,15 @@ public class AuthController {
                 HttpServletRequest req)
             throws GeneralSecurityException, IOException {
 
-        GoogleIdToken idToken = verifier.googleVerifier.verify(token);
-        GoogleIdToken.Payload payload = idToken.getPayload();
+        var payload = googleAuth.getPayload(token);
         var email = payload.getEmail();
 
         User user = userRepo.findByEmail(email);
 
-        if (isNull(user)) {
-            user = new User();
-            user.email = email;
-            user.name = payload.get("name").toString();
-            user.image = payload.get("picture").toString();
+        if (user == null) {
+            user = googleAuth.getUser(payload);
             user.nick = userService.createNick(user.name);
+            user = googleAuth.getUser(payload);
             userRepo.save(user);
             res.setStatus(201);
         } else {
