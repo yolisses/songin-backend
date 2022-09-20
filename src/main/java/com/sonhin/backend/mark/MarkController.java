@@ -19,7 +19,7 @@ public class MarkController {
 
     Mark createNewMark(String id) {
         var mark = new Mark();
-        mark.id = id;
+        mark.visitorId = id;
         mark.identifies = new HashSet<>();
         markRepo.save(mark);
         return mark;
