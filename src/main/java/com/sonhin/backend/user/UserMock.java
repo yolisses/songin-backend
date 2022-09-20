@@ -3,6 +3,7 @@ package com.sonhin.backend.user;
 import com.github.javafaker.Faker;
 import com.sonhin.backend.artist.Artist;
 import com.sonhin.backend.mock.MockRepo;
+import com.sonhin.backend.music.MusicRepo;
 import com.sonhin.backend.random.RandomUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ public class UserMock {
     Faker faker;
     MockRepo mockRepo;
     UserRepo userRepo;
+    MusicRepo musicRepo;
     UserService userService;
     RandomUtils randomUtils;
 
@@ -63,5 +65,44 @@ public class UserMock {
             }
         }
         userRepo.saveAll(users);
+    }
+
+
+    public void addLikes(int count) {
+        var users = userRepo.findAllByMockTrue();
+        var musics = musicRepo.findAllByMockTrue();
+        for (var user : users) {
+            for (int i = 0; i < count; i++) {
+                var music = randomUtils.choice(musics);
+                user.likes.add(music);
+                user.listened.add(music);
+            }
+            userRepo.save(user);
+        }
+    }
+
+    public void addListened(int count) {
+        var users = userRepo.findAllByMockTrue();
+        var musics = musicRepo.findAllByMockTrue();
+        for (var user : users) {
+            for (int i = 0; i < count; i++) {
+                var music = randomUtils.choice(musics);
+                user.listened.add(music);
+            }
+        }
+        userRepo.saveAll(users);
+    }
+
+    public void addShares(int count) {
+        var users = userRepo.findAllByMockTrue();
+        var musics = musicRepo.findAllByMockTrue();
+        for (var user : users) {
+            for (int i = 0; i < count; i++) {
+                var music = randomUtils.choice(musics);
+                user.shares.add(music);
+                user.listened.add(music);
+            }
+            userRepo.save(user);
+        }
     }
 }

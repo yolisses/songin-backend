@@ -104,8 +104,8 @@ public class MusicController {
                 HttpStatus.NOT_FOUND, "Music not found"
         );
         var comment = new Comment();
-        comment.setText(text);
-        comment.setOwner(user);
+        comment.text = text;
+        comment.owner = user;
         return commentRepo.save(comment);
     }
 

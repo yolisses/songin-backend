@@ -25,7 +25,7 @@ public class CommentController {
         if (comment.isEmpty()) throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Comment not found"
         );
-        if (comment.get().getOwner() != user) throw new ResponseStatusException(
+        if (comment.get().owner != user) throw new ResponseStatusException(
                 HttpStatus.FORBIDDEN, "Unauthorized comment delete"
         );
         commentRepo.delete(comment.get());
