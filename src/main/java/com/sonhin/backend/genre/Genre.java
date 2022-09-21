@@ -16,11 +16,10 @@ import javax.validation.constraints.NotNull;
 public class Genre {
     @Id
     @GeneratedValue
-    Long id;
-    boolean mock;
+    public Long id;
+    public boolean mock;
     @NotNull
     @NotBlank
     @Index(unique = true)
-    public
-    String name;
+    public String name;
 }

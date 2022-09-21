@@ -19,16 +19,14 @@ public class Comment {
 
     @Id
     @GeneratedValue
-    Long id;
+    public Long id;
 
     @NotBlank
-    public
-    String text;
+    public String text;
 
     @Relationship
-    public
-    User owner;
+    public User owner;
 
     @Relationship
-    Music refers;
+    public Music refers;
 }

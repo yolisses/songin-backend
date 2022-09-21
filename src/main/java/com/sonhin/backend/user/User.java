@@ -22,47 +22,41 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    boolean mock;
+    public boolean mock;
 
     @Id
     @GeneratedValue
-    public
-    Long id;
+    public Long id;
 
     @Required
-    public
-    String name;
+    public String name;
     public String image;
 
     @Required
     @Index(unique = true)
-    public
-    String nick;
+    public String nick;
 
     @Email
     @JsonIgnore
     @Index(unique = true)
-    public
-    String email;
+    public String email;
 
     @JsonIgnore
     @Relationship
-    public
-    List<Music> likes;
+    public List<Music> likes;
 
     @JsonIgnore
     @Relationship
-    Set<User> follows;
+    public Set<User> follows;
 
     @JsonIgnore
     @Relationship
-    Set<Music> shares;
+    public Set<Music> shares;
 
     @JsonIgnore
     @Relationship
-    public
-    List<Music> listened;
+    public List<Music> listened;
 
     @CreatedDate
-    Instant createdAt;
+    public Instant createdAt;
 }

@@ -15,9 +15,9 @@ import java.util.Set;
 @AllArgsConstructor
 public class Mark {
     @Id
-    String visitorId;
+    public String visitorId;
 
     @JsonIgnore
     @Relationship
-    Set<User> identifies;
+    public Set<User> identifies;
 }

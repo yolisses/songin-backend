@@ -19,25 +19,23 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Music {
-    boolean mock;
+    public boolean mock;
 
     @Id
     @GeneratedValue
-    public
-    Long id;
+    public Long id;
 
     @NotNull
     @NotBlank
-    public
-    String name;
+    public String name;
 
     @Relationship
-    Artist owner;
+    public Artist owner;
 
     @Relationship
-    Set<Genre> genres;
+    public Set<Genre> genres;
 
     @NotNull
     @Positive
-    int duration; // seconds
+    public int duration; // seconds
 }
