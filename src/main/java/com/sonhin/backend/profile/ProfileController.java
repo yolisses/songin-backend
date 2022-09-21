@@ -45,9 +45,9 @@ public class ProfileController {
         var user = userRepo.findByNick(nick);
         validateFound(user);
         var id = user.id;
-        var following = userRepo.doFollows(currentUser.id, id);
         var followersCount = userRepo.followersCount(id);
         var followingCount = userRepo.followingCount(id);
+        var following = userRepo.doFollows(currentUser.id, id);
         return new Profile(
                 user,
                 following,
