@@ -27,7 +27,7 @@ public class BackendApplication {
 
     @Bean
     CommandLineRunner commandLineRunner() {
-        boolean runMock = true;
+        boolean runMock = false;
         return args -> {
             if (runMock)
                 mock.run();

@@ -24,7 +24,7 @@ public class ByLikedMusic extends Group<Music> {
             var all = musicRepo.findAll();
             music = all.get(random.nextInt(all.size()));
         }
-        setName(name.concat("\"").concat(music.name).concat("\""));
+        name += "\"" + music.name + "\"";
         items = musicRepo.usersThatLikedAlsoLikedThese(music.id);
     }
 }

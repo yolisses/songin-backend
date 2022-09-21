@@ -2,8 +2,10 @@ package com.sonhin.backend.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sonhin.backend.music.Music;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.Required;
 import org.springframework.data.annotation.CreatedDate;
@@ -21,42 +23,43 @@ import java.util.Set;
 @Node
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PUBLIC)
 public class User {
-    public boolean mock;
+    boolean mock;
 
     @Id
     @GeneratedValue
-    public Long id;
+    Long id;
 
     @Required
-    public String name;
-    public String image;
+    String name;
+    String image;
 
     @Required
     @Index(unique = true)
-    public String nick;
+    String nick;
 
     @Email
     @JsonIgnore
     @Index(unique = true)
-    public String email;
+    String email;
 
     @JsonIgnore
     @Relationship
-    public List<Music> likes;
+    List<Music> likes;
 
     @JsonIgnore
     @Relationship
-    public Set<User> follows;
+    Set<User> follows;
 
     @JsonIgnore
     @Relationship
-    public Set<Music> shares;
+    Set<Music> shares;
 
     @JsonIgnore
     @Relationship
-    public List<Music> listened;
+    List<Music> listened;
 
     @CreatedDate
-    public Instant createdAt;
+    Instant createdAt;
 }

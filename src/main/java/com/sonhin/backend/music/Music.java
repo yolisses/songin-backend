@@ -3,8 +3,10 @@ package com.sonhin.backend.music;
 
 import com.sonhin.backend.artist.Artist;
 import com.sonhin.backend.genre.Genre;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
@@ -18,24 +20,25 @@ import java.util.Set;
 @Node
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PUBLIC)
 public class Music {
-    public boolean mock;
+    boolean mock;
 
     @Id
     @GeneratedValue
-    public Long id;
+    Long id;
 
     @NotNull
     @NotBlank
-    public String name;
+    String name;
 
     @Relationship
-    public Artist owner;
+    Artist owner;
 
     @Relationship
-    public Set<Genre> genres;
+    Set<Genre> genres;
 
     @NotNull
     @Positive
-    public int duration; // seconds
+    int duration; // seconds
 }
