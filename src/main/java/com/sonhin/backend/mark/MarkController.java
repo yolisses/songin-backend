@@ -62,11 +62,10 @@ public class MarkController {
         }
 
         var user = getUnsignedUser(mark);
-        if (user != null) {
-            return user;
+        if (user == null) {
+            user = createUnsignedUser(mark);
         }
 
-        user = createUnsignedUser(mark);
         auth.addSession(user, req, res);
         return user;
     }
