@@ -30,42 +30,42 @@ public class GroupController {
         Group group;
 
         group = new ByUsersWithSimilarLikes();
-        group.name = "Outros estão curtindo";
+        group.name = "Other people are liking";
         group.loadMusics(user, musicRepo, artistRepo, genreRepo);
         groups.add(group);
 
         group = new ByHistory();
-        group.name = "Escutar de novo";
+        group.name = "Listen again";
         group.loadMusics(user, musicRepo, artistRepo, genreRepo);
         groups.add(group);
 
         group = new ByLikedMusic();
-        group.name = "Pra quem gosta de ";
+        group.name = "For who likes ";
         group.loadMusics(user, musicRepo, artistRepo, genreRepo);
         groups.add(group);
 
         group = new ByLikedMusic();
-        group.name = "Tipo ";
+        group.name = "Just like ";
         group.loadMusics(user, musicRepo, artistRepo, genreRepo);
         groups.add(group);
 
         group = new ByLikesCount();
-        group.name = "As tops das tops";
+        group.name = "The best of the best";
         group.loadMusics(user, musicRepo, artistRepo, genreRepo);
         groups.add(group);
 
         group = new ByFollowersLikes();
-        group.name = "Selo de qualidade pessoas que você segue";
+        group.name = "The people who you follows likes";
         group.loadMusics(user, musicRepo, artistRepo, genreRepo);
         groups.add(group);
 
         group = new ByArtistsYouFollow();
-        group.name = "Dos artistas que você segue";
+        group.name = "From yours followed artists";
         group.loadMusics(user, musicRepo, artistRepo, genreRepo);
         groups.add(group);
 
         group = new ByGenre();
-        group.name = "O melhor do ";
+        group.name = "The best of ";
         group.loadMusics(user, musicRepo, artistRepo, genreRepo);
         groups.add(group);
 
