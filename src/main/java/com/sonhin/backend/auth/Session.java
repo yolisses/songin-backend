@@ -17,8 +17,7 @@ import java.time.temporal.ChronoUnit;
 public class Session {
     @Id
     @GeneratedValue(generatorClass = UUIDStringGenerator.class)
-    public
-    String id;
+    public String id;
     @Relationship
     User user;
     String ip;
